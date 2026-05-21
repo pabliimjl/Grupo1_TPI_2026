@@ -5,7 +5,11 @@ botonAceptar.addEventListener("click",aceptarIngreso)
 
 function aceptarIngreso(){
     const nombre = inputNombre.value
-    inputNombre.value = ""
-    localStorage.setItem('nombre', nombre)
-    window.location.href = "../html/productos.html"
+    if(nombre != ""){
+        inputNombre.value = ""
+        localStorage.setItem('nombre', nombre)
+        window.location.href = "../html/productos.html"}
+    else{
+        alert("Ingrese un nombre por favor.")
+    }
 }
