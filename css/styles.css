@@ -1,0 +1,41 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F0F0F0;
+    font-family:Montserrat;
+
+}
+
+#labelIngreso{
+
+    margin-top: 80px;
+}
+
+
+#labelIngreso input{
+    margin: 10px;
+
+}
+
+#aceptarIngreso{
+    font-family: Montserrat;
+    margin-top: 50px;
+    padding: 10px;
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+}
+
+.header > div{
+    margin-left: 15px;
+}
+
+.divProductos {
+    padding: 10px;
+    border-radius: 7px;
+    border-width: 5px;
+    border-color: black;
+}
