@@ -7,16 +7,21 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const saludo = document.getElementById("saludo")
     const nombre = localStorage.getItem('nombre')
     saludo.innerHTML = `Hola ${nombre}!`
+    mostrarLubricantes()
 })
 
 function mostrarLubricantes(){
-    botonLubricantes.style.backgroundColor="skyblue"
+    botonEsteticaVehicular.style.backgroundColor="skyblue"
+    console.log("estetica");
+    botonLubricantes.style.backgroundColor="#0f9ea5"
     console.log("lubricantes");
     
 }
 
 function mostrarEstetica(){
-    botonEsteticaVehicular.style.backgroundColor="skyblue"
+    botonLubricantes.style.backgroundColor="skyblue"
+    console.log("lubricantes");
+    botonEsteticaVehicular.style.backgroundColor="#0f9ea5"
     console.log("estetica");
     
 }
