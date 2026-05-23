@@ -1,0 +1,156 @@
+[
+    {
+        "marca": "YPF",
+        "producto": "YPF ROD 1L",
+        "formato": "1L",
+        "densidad": "20W50",
+        "tipo": "MINERAL",
+        "precio_bruto": 8490,
+        "url":"https://http2.mlstatic.com/D_NQ_NP_2X_654820-MLA98991927215_112025-F.webp"
+    },
+    {
+        "marca": "YPF",
+        "producto": "YPF ROD 1L",
+        "formato": "1L",
+        "densidad": "10W30/10W40",
+        "tipo": "SEMI-SINTETICO",
+        "precio_bruto": 11600,
+        "url":"https://acdn-us.mitiendanube.com/stores/006/347/913/products/d_nq_np_728452-mla79236631857_092024-f-5637d11412f4ac60d817580421335690-1024-1024.webp"
+    },
+    {
+        "marca": "ESSENTIAL",
+        "producto": "ESSENTIAL 2T 1L",
+        "formato": "1L",
+        "densidad": "",
+        "tipo": "MINERAL",
+        "precio_bruto": 12600,
+        "url":"https://http2.mlstatic.com/D_NQ_NP_2X_865219-MLA93941162400_102025-F.webp"
+    },
+    {
+        "marca": "ACTEVO",
+        "producto": "ESSENTIAL 4T 1L",
+        "formato": "1L",
+        "densidad": "20W50",
+        "tipo": "MINERAL",
+        "precio_bruto": 13100,
+        "url":"https://martinmorris.ar/cdn/shop/files/castrol-actevo-essencial-20w50-7794866019773.jpg?format=webp&v=1772743865&width=832"
+    },
+    {
+        "marca": "POWER 1",
+        "producto": "POWER 1 4T 1L",
+        "formato": "1L",
+        "densidad": "15W50",
+        "tipo": "SEMI-SINTETICO",
+        "precio_bruto": 20700,
+        "url":"https://www.performance-lube.com.ar/web/image/product.product/36776/image_1024/%5B810300001181%5D%20CASTROL%20POWER%201%204T%2015W50%20-%201L?unique=55b674a"
+    },
+    {
+        "marca": "ACTEVO",
+        "producto": "ACTEVO 4T 1L",
+        "formato": "1L",
+        "densidad": "10W40",
+        "tipo": "SEMI-SINTETICO",
+        "precio_bruto": 19500,
+        "url":"https://http2.mlstatic.com/D_NQ_NP_2X_738883-MLA106674519635_022026-F.webp"
+    },
+    {
+        "marca": "ACTEVO",
+        "producto": "ACTEVO 4T 1L",
+        "formato": "1L",
+        "densidad": "10W30",
+        "tipo": "SEMI-SINTETICO",
+        "precio_bruto": 19500,
+        "url":"https://http2.mlstatic.com/D_NQ_NP_2X_678286-MLA98746219641_112025-F.webp"
+    },
+    {
+        "marca": "GULF PRIDE",
+        "producto": "GULF PRIDE 4T 1L",
+        "formato": "1L",
+        "densidad": "20W50",
+        "tipo": "MINERAL",
+        "precio_bruto": 10700,
+        "url":"https://http2.mlstatic.com/D_NQ_NP_2X_772145-MLA80506612131_112024-F.webp"
+    },
+    {
+        "marca": "GULF PRIDE",
+        "producto": "GULF PRIDE 4T 800cc",
+        "formato": "800CC",
+        "densidad": "20W50",
+        "tipo": "MINERAL",
+        "precio_bruto": 8400,
+        "url":"https://http2.mlstatic.com/D_NQ_NP_2X_961156-MLA80506670919_112024-F.webp"
+    },
+    {
+        "marca": "GULF POWER",
+        "producto": "GULF POWER TRAC 4T 1L",
+        "formato": "1L",
+        "densidad": "15W50",
+        "tipo": "SEMI-SINTETICO",
+        "precio_bruto": 14200,
+        "url":"https://http2.mlstatic.com/D_NQ_NP_2X_707263-MLA99358562576_112025-F.webp"
+    },
+    {
+        "marca": "ADVANCE",
+        "producto": "ADVANCE 4T AX3 1L",
+        "formato": "1L",
+        "densidad": "20W50",
+        "tipo": "MINERAL",
+        "precio_bruto": 8800,
+        "url":"https://http2.mlstatic.com/D_NQ_NP_2X_662172-MLA99398678076_112025-F.webp"
+    },
+    {
+        "marca": "ADVANCE",
+        "producto": "ADVANCE 4T AX5 1L",
+        "formato": "1L",
+        "densidad": "20W50",
+        "tipo": "MINERAL",
+        "precio_bruto": 10900,
+        "url":"https://http2.mlstatic.com/D_NQ_NP_2X_744781-MLA109450594894_042026-F.webp"
+    },
+    {
+        "marca": "ADVANCE",
+        "producto": "ADVANCE 4T AX7 1L",
+        "formato": "1L",
+        "densidad": "15W50",
+        "tipo": "SEMI-SINTETICO",
+        "precio_bruto": 16100,
+        "url":"https://www.shell.com.ar/motorists/oils-lubricants/advance-for-motorcycles/advance-4-stroke-scooter-oil/shell-advance-4t-ax7-scooter/_jcr_content/root/main/section/standalone_asset.shellimg.jpeg/1702628957028/1l-advance-4t-ax7-scooter-10w-40.jpeg?imdensity=1&imwidth=509&impolicy=amidala-image"
+    },
+    {
+        "marca": "MOTUL",
+        "producto": "MOTUL 15W50 1L",
+        "formato": "1L",
+        "densidad": "15W50",
+        "tipo": "MINERAL",
+        "precio_bruto": 19800,
+        "url":"https://http2.mlstatic.com/D_NQ_NP_2X_864662-MLA99841799781_112025-F.webp"
+    },
+    {
+        "marca": "MOTUL",
+        "producto": "MOTUL 5000 4T 1L",
+        "formato": "1L",
+        "densidad": "10W30",
+        "tipo": "SEMI-SINTETICO",
+        "precio_bruto": 18400,
+        "url":"https://http2.mlstatic.com/D_NQ_NP_2X_984731-MLA84157563057_042025-F.webp"
+    },
+    {
+        "marca": "MOTUL",
+        "producto": "MOTUL 10W50 1L",
+        "formato": "1L",
+        "densidad": "10W50",
+        "tipo": "SEMI-SINTETICO",
+        "precio_bruto": 28000,
+        "url":"https://http2.mlstatic.com/D_NQ_NP_2X_836602-MLA96084014582_102025-F.webp"
+    },
+    {
+        "marca": "MOTUL",
+        "producto": "MOTUL 3000 4T",
+        "formato": "1L",
+        "densidad": "20W50",
+        "tipo": "MINERAL",
+        "precio_bruto": 14300,
+        "url":"https://cdn.autodoc.de/thumb?id=8818965&m=0&n=0&lng=es&rev=94078027"
+    }
+]
+
