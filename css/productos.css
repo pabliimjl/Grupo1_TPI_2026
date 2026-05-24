@@ -13,7 +13,7 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
-    background-color: #F0F0F0;
+    background-color: aquamarine;
     font-family: Montserrat;
 }
 
@@ -29,18 +29,26 @@ body {
 #footer p{
     margin-left: auto;
     margin-right: 20px;
+    color: #817f96;
+    font-family: Montserrat;
 }
 
-#footer > img{
-    width: 15%;
+#footer  a  img{
+    width: 50px;
+}
+
+#footer a {
+    margin: 0 20px 0 15px;
 }
 
 
 .botonCarrito{
-    background-color: aquamarine;
+    background-color:#0f9ea5;
     border-radius: 5px;
     padding: 10px;
+    color: white;
 }
+
 #productos {
     flex-grow: 1; 
     min-height: 0;

@@ -39,14 +39,14 @@ export class Lubricante extends Producto{
         const HTMLCarta = document.createElement("div");
 
         HTMLCarta.innerHTML = `<div id="producto"
-        <h2>${this.nombre_producto}</h2>
+        <p>${this.nombre_producto}</p>
             <img 
                 src="${this.url_imagen}" 
             >
 
         <p>Marca: ${this.marca}</p><p>Tipo: ${this.tipo}</p><p>Densidad: ${this.densidad ?? 'No aplica'}</p><p>Formato: ${this.formato}</p><p>Precio: $${this.precio}</p>
 
-        <button class="botonCarrito"" id="agregarAlCarrito">
+        <button class="botonCarrito"" id="agregarAlCarrito"><img height= "30px" src="../resources/icons/add_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
             Agregar al carrito
         </button></div>`
           
@@ -96,7 +96,7 @@ export class EsteticaVehicular extends Producto{
         const HTMLCarta = document.createElement("div");
 
         HTMLCarta.innerHTML = `<div id="producto">
-        <h2>${this.nombre_producto}</h2>
+        <p>${this.nombre_producto}</p>
             <img 
                 src="${this.url_imagen}" 
             >
