@@ -1,8 +1,14 @@
 import { ItemCarrito } from "./ItemCarrito.js";
+import {Ticket} from "./Ticket.js"
 
 const grillaProductos = document.getElementById("productos")
 let productosEnCarrito = []
 const pTotal = document.getElementById("total")
+
+const confirmarCarrito = document.getElementById("confirmarCarrito")
+confirmarCarrito.addEventListener("click",()=>{
+    crearTicket()
+})
 
 window.addEventListener('itemEliminado',(e)=>{
     productosEnCarrito.splice(e.detail.index,1)
@@ -33,8 +39,7 @@ function cargarProductos(){
 }
 
 function agregarProductosCarrito(){
-    const productos = JSON.parse(cargarProductos())
-
+    const productos = obtenerProductosEnLocal()
     for(const producto of productos){
             const item = new ItemCarrito(producto.nombre_producto, producto.precio,producto.cantidad)
             productosEnCarrito.push(item)            
@@ -43,6 +48,12 @@ function agregarProductosCarrito(){
     
     console.log(productosEnCarrito);
     
+}
+
+function obtenerProductosEnLocal(){
+    const productos = JSON.parse(cargarProductos())
+    return productos;
+
 }
 
 function agregarProductosALaGrilla(){
@@ -58,4 +69,33 @@ function agregarProductosALaGrilla(){
     })
     pTotal.innerHTML = `Total: $${total.toFixed(2)}`
     
+}
+
+function crearTicket(){
+
+    const items = obtenerProductosEnLocal()
+    if(items!= null){
+    const nombre_comprador = localStorage.getItem('nombre')
+    let id_ticket;
+    let tickets = localStorage.getItem('tickets')
+    if(tickets==null){
+        tickets = []
+        id_ticket = 1;
+    }else{
+        tickets = JSON.parse(tickets)
+        id_ticket = (tickets[tickets.length-1].id_ticket)+1;
+    }
+    console.log(id_ticket);
+    
+    const ticketNuevo = new Ticket(id_ticket,nombre_comprador,items)
+    tickets.push(ticketNuevo)
+
+    localStorage.setItem(
+        "tickets",
+        JSON.stringify(tickets)
+    );
+
+    localStorage.removeItem('productosEnCarrito')
+    pTotal.innerHTML="";
+    window.location.href = "./ticket.html"}
 }

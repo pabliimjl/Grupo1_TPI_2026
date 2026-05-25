@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket</title>
+    <link rel="stylesheet" href="../css/ticket.css">
+</head>
+<body>
+    <section class = "header">
+        <h2 id="saludo">Detalle del ticket</h2>
+    </section>
+     <div id = "productos">
+        <table id = "ticket">
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+        </table>
+        
+        <p id = "total"></p>
+    </div>
+    <footer id="footer">
+        <p></p>
+        <button id="descargarTicket">Descargar ticket</button>
+        <p>Pablo Jesus <br> Juan Tilcara</p>
+    </footer>
+    
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+<script type="module" src="../js/logicaTicket.js"></script>
+</html>
