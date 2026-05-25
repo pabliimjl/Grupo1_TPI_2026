@@ -69,8 +69,8 @@ async function agregarEsteticaGrilla(){
     const esteticaVehicular = await cargarEsteticaVehicular()
     
     for(const estetica of esteticaVehicular){
-        const lub = new EsteticaVehicular(estetica.marca,estetica.producto,estetica.categoria,estetica.formato,estetica.precio_bruto,estetica.url)
-        grillaProductos.appendChild(lub.createHtmlElement());
+        const est = new EsteticaVehicular(estetica.marca,estetica.producto,estetica.categoria,estetica.formato,estetica.precio_bruto,estetica.url)
+        grillaProductos.appendChild(est.createHtmlElement());
         
     }
 }

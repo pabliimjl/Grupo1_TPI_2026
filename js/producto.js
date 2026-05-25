@@ -1,5 +1,3 @@
-
-
 export class Producto{
     
     id;
@@ -38,8 +36,8 @@ export class Lubricante extends Producto{
     createHtmlElement(){
         const HTMLCarta = document.createElement("div");
 
-        HTMLCarta.innerHTML = `<div id="producto"
-        <p>${this.nombre_producto}</p>
+        HTMLCarta.innerHTML = `<div id="producto">
+        <h6>${(this.nombre_producto).toUpperCase()}</h6>
             <img 
                 src="${this.url_imagen}" 
             >
@@ -74,12 +72,68 @@ export class Lubricante extends Producto{
             productosEnCarrito =
                 JSON.parse(productosEnCarrito);
         }
-        productosEnCarrito.push(lubricante)
+        
+        const indice = productosEnCarrito.findIndex(p=> p.nombre_producto === lubricante.nombre_producto)
+        
+        if(indice <0){
+        
+        productosEnCarrito.push({...lubricante, cantidad:1})}
+        else{productosEnCarrito[indice].cantidad++}
 
         localStorage.setItem(
             "productosEnCarrito",
             JSON.stringify(productosEnCarrito)
         );
+    }
+
+    static quitarDelCarrito(producto){
+
+        let productosEnCarrito =
+            localStorage.getItem("productosEnCarrito");
+
+        if(productosEnCarrito == null){
+            alert('No hay productos en carrito');
+        }
+        else{
+            productosEnCarrito =
+                JSON.parse(productosEnCarrito);
+        }
+        const i = productosEnCarrito.findIndex(p=> p.nombre_producto === producto.nombre_producto)
+        
+        if(productosEnCarrito[i].cantidad >1){
+            productosEnCarrito[i].cantidad--;
+        }else{
+        productosEnCarrito.splice(i,1)
+        const evento = new CustomEvent('carritoActualizado',{detail:{index:i}});
+        window.dispatchEvent(evento);
+}
+
+        localStorage.setItem(
+            "productosEnCarrito",
+            JSON.stringify(productosEnCarrito)
+        );
+    }
+
+    createHtmlCarrito(){
+
+        const HTMLProducto = document.createElement("div");
+
+        HTMLProducto.innerHTML = `<div id="producto">
+        <h6>${this.nombre_producto}</h6>
+        <p>Precio: $${this.precio}</p>
+        <p id="cantidadElemento">Cantidad: </p>
+
+        <button class="botonCarrito"" id="quitarDelCarrito"><img height= "30px" src="../resources/icons/remove_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
+            QuitarDelCarrito
+        </button></div>`
+          
+        const botonAgregarAlCarrito = HTMLProducto.querySelector("#quitarDelCarrito");
+
+        botonAgregarAlCarrito.addEventListener("click", () => {
+            Lubricante.quitarDelCarrito(this);
+    });
+        return HTMLProducto;
+
     }
 }
 
@@ -93,26 +147,26 @@ export class EsteticaVehicular extends Producto{
 
 
     createHtmlElement(){
-        const HTMLCarta = document.createElement("div");
+        const HTMLProducto = document.createElement("div");
 
-        HTMLCarta.innerHTML = `<div id="producto">
-        <p>${this.nombre_producto}</p>
+        HTMLProducto.innerHTML = `<div id="producto">
+        <h6>${(this.nombre_producto).toUpperCase()}</h6>
             <img 
                 src="${this.url_imagen}" 
             >
 
         <p>Marca: ${this.marca ?? 'No aplica'}</p><p>Categoria: ${this.categoria}</p><p>Formato: ${this.formato ?? 'No aplica'}</p><p>Precio: $${this.precio}</p>
 
-        <button class="botonCarrito"" id="agregarAlCarrito">
+        <button class="botonCarrito"" id="agregarAlCarrito"><img height= "30px" src="../resources/icons/add_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
             Agregar al carrito
         </button></div>`
           
-        const botonAgregarAlCarrito = HTMLCarta.querySelector("#agregarAlCarrito");
+        const botonAgregarAlCarrito = HTMLProducto.querySelector("#agregarAlCarrito");
 
         botonAgregarAlCarrito.addEventListener("click", () => {
             Lubricante.agregarAlCarrito(this);
     });
-        return HTMLCarta;
+        return HTMLProducto;
     }
 
     toJsonString(){
@@ -131,12 +185,69 @@ export class EsteticaVehicular extends Producto{
             productosEnCarrito =
                 JSON.parse(productosEnCarrito);
         }
-        productosEnCarrito.push(producto)
+        
+        const indice = productosEnCarrito.findIndex(p=> p.nombre_producto === producto.nombre_producto)
+        
+        if(indice <0){
+        
+        productosEnCarrito.push({...producto, cantidad:1})}
+        else{productosEnCarrito[indice].cantidad++}
 
         localStorage.setItem(
             "productosEnCarrito",
             JSON.stringify(productosEnCarrito)
         );
+    }
+
+    static quitarDelCarrito(producto){
+
+        let productosEnCarrito =
+            localStorage.getItem("productosEnCarrito");
+
+        if(productosEnCarrito == null){
+            alert('No hay productos en carrito');
+        }
+        else{
+            productosEnCarrito =
+                JSON.parse(productosEnCarrito);
+        }
+        const i = productosEnCarrito.findIndex(p=> p.nombre_producto === producto.nombre_producto)
+        
+        if(productosEnCarrito[i].cantidad >1){
+            productosEnCarrito[i].cantidad--;
+        }else{
+        productosEnCarrito.splice(i,1)
+        const evento = new CustomEvent('carritoActualizado',{detail:{index:i}});
+        window.dispatchEvent(evento);}
+
+
+        localStorage.setItem(
+            "productosEnCarrito",
+            JSON.stringify(productosEnCarrito)
+        );
+        
+    }
+
+    createHtmlCarrito(){
+
+        const HTMLProducto = document.createElement("div");
+
+        HTMLProducto.innerHTML = `<div id="producto">
+        <h6>${this.nombre_producto}</h6>
+        <p>Precio: $${this.precio}</p>
+        <p id="cantidadElemento">Cantidad: </p>
+
+        <button class="botonCarrito"" id="quitarDelCarrito"><img height= "30px" src="../resources/icons/remove_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
+            QuitarDelCarrito
+        </button></div>`
+          
+        const botonAgregarAlCarrito = HTMLProducto.querySelector("#quitarDelCarrito");
+
+        botonAgregarAlCarrito.addEventListener("click", () => {
+            EsteticaVehicular.quitarDelCarrito(this);
+    });
+        return HTMLProducto;
+
     }
 }
 

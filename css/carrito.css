@@ -53,10 +53,11 @@ body {
     flex-grow: 1; 
     min-height: 0;
     overflow-y: auto; 
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); 
+    display: flex;
+    flex-direction: column;
     width: 100%;
     padding: 10px;
+    justify-content: flex-start;
 }
 #productos img{
     width: 90%;
@@ -69,54 +70,25 @@ body {
     border-radius: 15px;
     
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     
-    height: 100%; 
+    height: 100px; 
     box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
 }
 
-@media (max-width: 1200px){
-    #productos{
-        grid-template-columns: auto auto auto;
-    }
+#producto h6 {
+    margin: 0;
+    text-align: left;
+    width: 25%;
 }
-@media (max-width: 900px){
-    #productos{
-        grid-template-columns: auto auto;
-    }
-}
-
-@media (max-width: 550px)
-{   #productos{
-        grid-template-columns: auto;
-    }
+#producto p{
+    text-align:center;
+    width: 25%;
+    margin-right: 10px;
 }
 
-#producto p {
-    margin: 5px 0;
-    text-align: center;
-}
-#producto h6{
-    padding: 10px 20px 10px 20px;
-    border: gray solid 2px;
-    border-radius: 10px;
-    background-color:skyblue;
-    color: white;
-    font-family: Montserrat;
-}
-#producto img{
-    width: auto;
-    max-height: 120px;
-}
-
-
-.botonCarrito {
-    margin-top: auto; 
-    width: 100%;     
-    text-align: center;
-}
 
 #producto p {
     font-size: 0.8rem;
@@ -162,4 +134,15 @@ body {
     border-radius: 7px;
     border-width: 5px;
     border-color: black;
+}
+
+#confirmarCarrito{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color:#0f9ea5;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    margin:5px;
 }

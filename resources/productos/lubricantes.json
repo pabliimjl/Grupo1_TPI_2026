@@ -1,7 +1,7 @@
 [
     {
         "marca": "YPF",
-        "producto": "YPF ROD 1L",
+        "producto": "YPF ROD 1L 20W50",
         "formato": "1L",
         "densidad": "20W50",
         "tipo": "MINERAL",
@@ -10,9 +10,9 @@
     },
     {
         "marca": "YPF",
-        "producto": "YPF ROD 1L",
+        "producto": "YPF ROD 1L 10W40",
         "formato": "1L",
-        "densidad": "10W30/10W40",
+        "densidad": "10W40",
         "tipo": "SEMI-SINTETICO",
         "precio_bruto": 11600,
         "url":"https://acdn-us.mitiendanube.com/stores/006/347/913/products/d_nq_np_728452-mla79236631857_092024-f-5637d11412f4ac60d817580421335690-1024-1024.webp"
@@ -21,7 +21,7 @@
         "marca": "ESSENTIAL",
         "producto": "ESSENTIAL 2T 1L",
         "formato": "1L",
-        "densidad": "",
+        "densidad": "2T",
         "tipo": "MINERAL",
         "precio_bruto": 12600,
         "url":"https://http2.mlstatic.com/D_NQ_NP_2X_865219-MLA93941162400_102025-F.webp"
@@ -46,7 +46,7 @@
     },
     {
         "marca": "ACTEVO",
-        "producto": "ACTEVO 4T 1L",
+        "producto": "ACTEVO 4T 1L 10W40",
         "formato": "1L",
         "densidad": "10W40",
         "tipo": "SEMI-SINTETICO",
@@ -55,7 +55,7 @@
     },
     {
         "marca": "ACTEVO",
-        "producto": "ACTEVO 4T 1L",
+        "producto": "ACTEVO 4T 1L 10W30",
         "formato": "1L",
         "densidad": "10W30",
         "tipo": "SEMI-SINTETICO",
