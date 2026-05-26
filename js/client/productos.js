@@ -1,4 +1,5 @@
-import { EsteticaVehicular, Lubricante, Producto } from "./producto.js";
+import { EsteticaVehicular, Lubricante, Producto } from "../producto.js";
+import { loadTemplate } from "../template.js";
 
 const botonLubricantes = document.getElementById("lubricantes")
 botonLubricantes.addEventListener("click",mostrarLubricantes);
@@ -10,6 +11,7 @@ const grillaProductos = document.getElementById("productos")
 
 
 document.addEventListener("DOMContentLoaded", ()=>{
+    loadTemplate();
     const saludo = document.getElementById("saludo")
     const nombre = localStorage.getItem('nombre')
     saludo.innerHTML = `Hola ${nombre}!`

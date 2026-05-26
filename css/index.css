@@ -6,7 +6,7 @@ html {
 }
 
 body {
-    height: 100vh; /* Ocupa el 100% de la ventana */
+    /*height: 100vh; /* Ocupa el 100% de la ventana */
     margin: 0;
     display: flex;
     flex-direction: column;

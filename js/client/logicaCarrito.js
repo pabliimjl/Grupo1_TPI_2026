@@ -1,5 +1,6 @@
-import { ItemCarrito } from "./ItemCarrito.js";
-import {Ticket} from "./Ticket.js"
+import { ItemCarrito } from "../ItemCarrito.js";
+import {Ticket} from "../Ticket.js"
+import { loadTemplate } from "../template.js";
 
 const grillaProductos = document.getElementById("productos")
 let productosEnCarrito = []
@@ -27,6 +28,7 @@ function limpiarProductos(){
 }
 
 document.addEventListener("DOMContentLoaded", ()=>{
+    loadTemplate();
     agregarProductosCarrito()
     agregarProductosALaGrilla()
 })
