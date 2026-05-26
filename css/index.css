@@ -1,0 +1,50 @@
+html {
+    background-color: #0f9ea5;
+    color: white;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    height: 100vh; /* Ocupa el 100% de la ventana */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centra el contenido verticalmente */
+    font-family: Montserrat, sans-serif;
+}
+
+/* Mejora para el formulario */
+#labelIngreso {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Separa el título, el input y el botón */
+}
+
+input {
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 250px;
+}
+
+#aceptarIngreso {
+    padding: 10px 30px;
+    background-color: white;
+    color: #0f9ea5;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#aceptarIngreso:active {
+
+    background-color: #e0fdf5;
+
+    transform: scale(0.95);
+}

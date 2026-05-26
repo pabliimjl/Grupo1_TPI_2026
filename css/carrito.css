@@ -1,0 +1,148 @@
+* {
+  box-sizing: border-box; 
+}
+
+html, body {
+  height: 100vh; 
+  width: 100vw;  
+  margin: 0;     
+  padding: 0;
+  overflow: hidden; 
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: aquamarine;
+    font-family: Montserrat;
+}
+
+
+#footer {
+    height: 60px; 
+    flex-shrink: 0; 
+    display: flex;
+    flex-direction: row;
+    background-color: aquamarine;
+    width: 100%;
+}
+#footer p{
+    margin-left: auto;
+    margin-right: 20px;
+    color: #817f96;
+    font-family: Montserrat;
+}
+
+#footer  a  img{
+    width: 50px;
+}
+
+#footer a {
+    margin: 0 20px 0 15px;
+}
+
+
+.botonCarrito{
+    background-color:#0f9ea5;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+}
+
+#productos {
+    flex-grow: 1; 
+    min-height: 0;
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    justify-content: flex-start;
+}
+#productos img{
+    width: 90%;
+}
+
+#producto {
+    background-color: white; 
+    padding: 15px;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    height: 100px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+}
+
+#producto h6 {
+    margin: 0;
+    text-align: left;
+    width: 25%;
+}
+#producto p{
+    text-align:center;
+    width: 25%;
+    margin-right: 10px;
+}
+
+
+#producto p {
+    font-size: 0.8rem;
+    margin: 5px 0;
+}
+
+#labelIngreso{
+
+    margin-top: 80px;
+}
+
+
+#labelIngreso input{
+    margin: 10px;
+
+}
+
+#aceptarIngreso{
+    font-family: Montserrat;
+    margin-top: 50px;
+    padding: 10px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    flex-shrink: 0; 
+}
+
+#selectores{
+    display: flex;
+    flex-direction: row;
+}
+
+#selectores > div{
+    margin-left: 15px;
+}
+
+.divProductos {
+    padding: 10px;
+    border-radius: 7px;
+    border-width: 5px;
+    border-color: black;
+}
+
+#confirmarCarrito{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color:#0f9ea5;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    margin:5px;
+}
