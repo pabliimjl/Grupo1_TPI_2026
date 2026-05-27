@@ -6,6 +6,13 @@ document.addEventListener("DOMContentLoaded", function() {
     cargarTablas();
 });
 
+const cargarProductoButton = document.getElementById("cargarProductoButton");
+cargarProductoButton.addEventListener("click", function() {
+    // Aquí puedes implementar la lógica para cargar un nuevo producto
+    console.log("Cargar nuevo producto");
+    window.location.href = "./altaProducto.html";
+});
+
 const tabButtons = document.querySelectorAll('.tab-button');
 const tabContents = document.querySelectorAll('.tab-content');
 

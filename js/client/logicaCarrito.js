@@ -100,6 +100,4 @@ function crearTicket(){
         pTotal.innerHTML="";
         window.location.href = "./ticket.html";
     }
-    // BORRAR ESTO DESPUES DE PROBAR
-    window.location.href = "./ticket.html";
 }
