@@ -41,7 +41,7 @@ function limpiarProductos(){
 }
 
 async function cargarLubricantes(){
-    const response = await fetch("../resources/productos/lubricantes.json")
+    const response = await fetch("../../resources/productos/lubricantes.json")
     const lubricantes = await response.json()
     console.log(lubricantes);
     
@@ -60,7 +60,7 @@ async function agregarLubricantesGrilla(){
 }
 
 async function cargarEsteticaVehicular(){
-    const response = await fetch("../resources/productos/esteticaVehicular.json")
+    const response = await fetch("../../resources/productos/esteticaVehicular.json")
     const esteticaVehicular = await response.json()
     
     

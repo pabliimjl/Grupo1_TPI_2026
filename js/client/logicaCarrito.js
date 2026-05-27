@@ -8,7 +8,7 @@ const pTotal = document.getElementById("total")
 
 const confirmarCarrito = document.getElementById("confirmarCarrito")
 confirmarCarrito.addEventListener("click",()=>{
-    crearTicket()
+    crearTicket();
 })
 
 window.addEventListener('itemEliminado',(e)=>{
@@ -74,30 +74,32 @@ function agregarProductosALaGrilla(){
 }
 
 function crearTicket(){
-
     const items = obtenerProductosEnLocal()
     if(items!= null){
-    const nombre_comprador = localStorage.getItem('nombre')
-    let id_ticket;
-    let tickets = localStorage.getItem('tickets')
-    if(tickets==null){
-        tickets = []
-        id_ticket = 1;
-    }else{
-        tickets = JSON.parse(tickets)
-        id_ticket = (tickets[tickets.length-1].id_ticket)+1;
+        const nombre_comprador = localStorage.getItem('nombre');
+        let id_ticket;
+        let tickets = localStorage.getItem('tickets');
+        if(tickets==null){
+            tickets = []
+            id_ticket = 1;
+        }else{
+            tickets = JSON.parse(tickets)
+            id_ticket = (tickets[tickets.length-1].id_ticket)+1;
+        }
+        console.log(id_ticket);
+        
+        const ticketNuevo = new Ticket(id_ticket,nombre_comprador,items)
+        tickets.push(ticketNuevo)
+
+        localStorage.setItem(
+            "tickets",
+            JSON.stringify(tickets)
+        );
+
+        localStorage.removeItem('productosEnCarrito')
+        pTotal.innerHTML="";
+        window.location.href = "./ticket.html";
     }
-    console.log(id_ticket);
-    
-    const ticketNuevo = new Ticket(id_ticket,nombre_comprador,items)
-    tickets.push(ticketNuevo)
-
-    localStorage.setItem(
-        "tickets",
-        JSON.stringify(tickets)
-    );
-
-    localStorage.removeItem('productosEnCarrito')
-    pTotal.innerHTML="";
-    window.location.href = "./ticket.html"}
+    // BORRAR ESTO DESPUES DE PROBAR
+    window.location.href = "./ticket.html";
 }

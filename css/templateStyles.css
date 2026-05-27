@@ -36,13 +36,6 @@
   padding-left: 20px;
 }
 
-.header-creators h2 {
-  font-family: Arial, sans-serif;
-  font-size: 1.5rem;
-  color: #333;
-  margin: 0 0 10px 0;
-}
-
 .header-creators ul {
   list-style-type: none;
   padding: 0;
@@ -51,7 +44,7 @@
 
 .header-creators li {
   font-family: Arial, sans-serif;
-  font-size: 1rem;
+  font-size: 0.875rem;
   color: #333;
   margin: 0 0 5px 0;
 }

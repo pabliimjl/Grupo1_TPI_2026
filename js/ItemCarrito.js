@@ -42,7 +42,6 @@ export class ItemCarrito{
 
     static agregarUno(item){
         console.log(item);
-        
 
         let productosEnCarrito =
             localStorage.getItem("productosEnCarrito");
@@ -73,9 +72,9 @@ export class ItemCarrito{
         <p>Precio: $${(this.precio*this.cantidad).toFixed(2)}</p>
         <p>Cantidad: ${this.cantidad}</p>
 
-        <button class="botonCarrito"" id="quitarUno"><img height= "20px" src="../resources/icons/remove_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
+        <button class="botonCarrito"" id="quitarUno"><img height= "20px" src="../../resources/icons/remove_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
             -1
-        </button><button class="botonCarrito"" id="agregarUno"><img height= "20px" src="../resources/icons/add_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
+        </button><button class="botonCarrito"" id="agregarUno"><img height= "20px" src="../../resources/icons/add_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
             +1
         </button></div>`
           
@@ -83,12 +82,12 @@ export class ItemCarrito{
 
         botonQuitarUno.addEventListener("click", () => {
             ItemCarrito.quitarDelCarrito(this);
-
-    });
+        });
+        
         const botonAgregarUno = HTMLItem.querySelector('#agregarUno');
         botonAgregarUno.addEventListener("click",()=>{
             ItemCarrito.agregarUno(this)
-        })
+        });
 
         return HTMLItem;
 

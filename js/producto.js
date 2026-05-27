@@ -44,7 +44,7 @@ export class Lubricante extends Producto{
 
         <p>Marca: ${this.marca}</p><p>Tipo: ${this.tipo}</p><p>Densidad: ${this.densidad ?? 'No aplica'}</p><p>Formato: ${this.formato}</p><p>Precio: $${this.precio}</p>
 
-        <button class="botonCarrito"" id="agregarAlCarrito"><img height= "30px" src="../resources/icons/add_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
+        <button class="botonCarrito"" id="agregarAlCarrito"><img height= "30px" src="../../resources/icons/add_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
             Agregar al carrito
         </button></div>`
           
@@ -103,10 +103,10 @@ export class Lubricante extends Producto{
         if(productosEnCarrito[i].cantidad >1){
             productosEnCarrito[i].cantidad--;
         }else{
-        productosEnCarrito.splice(i,1)
-        const evento = new CustomEvent('carritoActualizado',{detail:{index:i}});
-        window.dispatchEvent(evento);
-}
+            productosEnCarrito.splice(i,1)
+            const evento = new CustomEvent('carritoActualizado',{detail:{index:i}});
+            window.dispatchEvent(evento);
+        }
 
         localStorage.setItem(
             "productosEnCarrito",
@@ -157,7 +157,7 @@ export class EsteticaVehicular extends Producto{
 
         <p>Marca: ${this.marca ?? 'No aplica'}</p><p>Categoria: ${this.categoria}</p><p>Formato: ${this.formato ?? 'No aplica'}</p><p>Precio: $${this.precio}</p>
 
-        <button class="botonCarrito"" id="agregarAlCarrito"><img height= "30px" src="../resources/icons/add_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
+        <button class="botonCarrito"" id="agregarAlCarrito"><img height= "30px" src="../../resources/icons/add_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
             Agregar al carrito
         </button></div>`
           

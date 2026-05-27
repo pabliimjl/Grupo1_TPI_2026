@@ -135,14 +135,3 @@ body {
     border-width: 5px;
     border-color: black;
 }
-
-#confirmarCarrito{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color:#0f9ea5;
-    padding: 10px;
-    border-radius: 5px;
-    color: white;
-    margin:5px;
-}

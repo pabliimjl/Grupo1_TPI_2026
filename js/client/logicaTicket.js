@@ -1,26 +1,40 @@
-import { Ticket } from "./Ticket.js";
-const ultimoTicket = obtenerUltimoTicket()
-const ticket = new Ticket(ultimoTicket.id_ticket,ultimoTicket.nombre_comprador,ultimoTicket.items)
+import { Ticket } from "../Ticket.js";
+import { loadTemplate } from "../template.js";
 
-const descargarTicket = document.getElementById("descargarTicket")
+const ultimoTicket = obtenerUltimoTicket();
+const ticket = crearTicket();
+
+const descargarTicket = document.getElementById("descargarTicket");
 descargarTicket.addEventListener("click",()=>{
-    crearPDF()
+    crearPDF();
 })
 
-window.addEventListener('DOMContentLoaded',()=>{
-    agregarFilas()
-})
+document.addEventListener("DOMContentLoaded", ()=>{
+    loadTemplate();
+    agregarFilas();
+});
 
 function obtenerUltimoTicket(){
-    let tickets = localStorage.getItem('tickets')
-    tickets = JSON.parse(tickets)
+    let tickets = localStorage.getItem('tickets');
+    tickets = JSON.parse(tickets);
+    if (!tickets || tickets.length === 0) {
+        return null;
+    }
     return tickets[tickets.length-1];
 }
 
 function agregarFilas() {
     const cuerpoTabla = document.getElementById("ticket");
 
-    const filas = ticket.obtenerItemsParaTabla()
+    if (!ultimoTicket) {
+        cuerpoTabla.innerHTML = "<p>No se encontraron tickets.</p>";
+        return;
+    }
+    if (!ticket ||!ticket.items || ticket.items.length === 0) {
+        cuerpoTabla.innerHTML = "<p>No se encontraron items en el ticket.</p>";
+        return;
+    }
+    const filas = ticket.obtenerItemsParaTabla();
     filas.forEach(item => {
     cuerpoTabla.innerHTML += `
         <tr>
@@ -36,8 +50,15 @@ function agregarFilas() {
     cuerpoTabla.innerHTML += `
             <p>Total: $${ticket.calcularTotal()}</p>
     `;
-        
+}
 
+function crearTicket(ultimoTicket){
+    if (!ultimoTicket) {
+        console.log("No se encontró ningún ticket para generar.");
+        return null;
+    }
+    console.log(ultimoTicket);
+    return ticket = new Ticket(ultimoTicket.id_ticket,ultimoTicket.nombre_comprador,ultimoTicket.items);
 }
 
 async function crearPDF(){
@@ -48,12 +69,21 @@ async function crearPDF(){
 
     pdf.setFontSize(18);
 
+    if (!ticket) {
+        console.log("No se encontró ningún ticket para generar el PDF.");
+        document.getElementById("volverLink").style.display = "block";
+        return;
+    }
     pdf.text(`Ticket #${ticket.id_ticket}`, 14, 20);
     pdf.text(`Cliente: ${ticket.nombre_comprador}`, 14, 30);
 
-
     const items = ticket.obtenerItemsParaTabla();
 
+    if (items.length === 0) {
+        pdf.text("No se encontraron items en el ticket.", 14, 40);
+        pdf.save(`ticket${ticket.id_ticket}.pdf`);
+        return;
+    }
     const filas = items.map(item => [
         item[0],
         item[1], 
