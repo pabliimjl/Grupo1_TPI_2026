@@ -11,6 +11,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
     <link rel="stylesheet" href="../../css/templateStyles.css">
 </head>
 <body>
@@ -18,9 +19,49 @@
     <div id="containerDiv">
         <h2>Bienvenido al panel de administración</h2>
         <p>Desde aquí puedes gestionar los productos.</p>
-        <button id="manageProducts" class="btn btn-primary">Gestionar Productos</button>
+        <div id="productos">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="tablaLubricantes">Lubricantes</button>
+                <button class="tab-button" data-tab="tablaEsteticaVehicular">Estética Vehicular</button>
+            </div>
+            <div id="tablaLubricantes" class="tab-content active">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Marca</th>
+                            <th>Tipo</th>
+                            <th>Densidad</th>
+                            <th>Formato</th>
+                            <th>Precio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div id="tablaEsteticaVehicular" class="tab-content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Categoria</th>
+                            <th>Formato</th>
+                            <th>Precio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <!--<button id="manageProducts" class="btn btn-primary">Gestionar Productos</button>-->
     </div>
-    <div id="footerDiv"></div>
+    <footer id="footer">
+        <a href="./login.html"><img src="../../resources/icons/arrow_back_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/></a>
+        <p></p>
+        <button id="cargarProductoButton" class="btn btn-primary">Cargar Producto</button>
+    </footer>
 </body>
 <script type="module" src="../../js/admin/adminDashboard.js"></script>
 </html>

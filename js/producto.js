@@ -14,7 +14,7 @@ export class Producto{
         this.formato = formato;
         this.precio = precio;
         this.url_imagen = url_imagen;
-        }
+    }
 
     toJsonString(){
         return JSON.stringify(this)
@@ -22,63 +22,56 @@ export class Producto{
 }
 
 export class Lubricante extends Producto{
-        densidad;
-        tipo;
-        constructor(marca,nombre_producto,formato,densidad,tipo,precio,url_imagen){
-            super(marca,nombre_producto,formato,precio
-                ,url_imagen)
-            this.densidad = densidad;
-            this.tipo = tipo;
-        }
-
-    
+    densidad;
+    tipo;
+    constructor(marca, nombre_producto, formato,densidad, tipo,precio, url_imagen) {
+        super(marca, nombre_producto, formato, precio, url_imagen)
+        this.densidad = densidad;
+        this.tipo = tipo;
+    }
 
     createHtmlElement(){
-        const HTMLCarta = document.createElement("div");
+        const HTMLProducto = document.createElement("div");
 
-        HTMLCarta.innerHTML = `<div id="producto">
+        HTMLProducto.innerHTML = `<div id="producto">
         <h6>${(this.nombre_producto).toUpperCase()}</h6>
-            <img 
-                src="${this.url_imagen}" 
-            >
+            <img src="${this.url_imagen}" alt="${this.nombre_producto}">
 
         <p>Marca: ${this.marca}</p><p>Tipo: ${this.tipo}</p><p>Densidad: ${this.densidad ?? 'No aplica'}</p><p>Formato: ${this.formato}</p><p>Precio: $${this.precio}</p>
 
         <button class="botonCarrito"" id="agregarAlCarrito"><img height= "30px" src="../../resources/icons/add_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
             Agregar al carrito
-        </button></div>`
+        </button></div>`;
           
-        const botonAgregarAlCarrito = HTMLCarta.querySelector("#agregarAlCarrito");
+        const botonAgregarAlCarrito = HTMLProducto.querySelector("#agregarAlCarrito");
 
         botonAgregarAlCarrito.addEventListener("click", () => {
             Lubricante.agregarAlCarrito(this);
-    });
-        return HTMLCarta;
+        });
+        return HTMLProducto;
     }
 
     toJsonString(){
         return JSON.stringify(this)
     }
 
-    static agregarAlCarrito(lubricante){
+    static agregarAlCarrito(lubricante) {
 
-        let productosEnCarrito =
-            localStorage.getItem("productosEnCarrito");
+        let productosEnCarrito = localStorage.getItem("productosEnCarrito");
 
-        if(productosEnCarrito == null){
+        if (productosEnCarrito == null) {
             productosEnCarrito = [];
-        }
-        else{
-            productosEnCarrito =
-                JSON.parse(productosEnCarrito);
+        } else {
+            productosEnCarrito = JSON.parse(productosEnCarrito);
         }
         
-        const indice = productosEnCarrito.findIndex(p=> p.nombre_producto === lubricante.nombre_producto)
+        const indice = productosEnCarrito.findIndex(p=> p.nombre_producto === lubricante.nombre_producto);
         
-        if(indice <0){
-        
-        productosEnCarrito.push({...lubricante, cantidad:1})}
-        else{productosEnCarrito[indice].cantidad++}
+        if (indice <0) {
+            productosEnCarrito.push({...lubricante, cantidad:1});
+        } else {
+            productosEnCarrito[indice].cantidad++;
+        }
 
         localStorage.setItem(
             "productosEnCarrito",
@@ -88,22 +81,19 @@ export class Lubricante extends Producto{
 
     static quitarDelCarrito(producto){
 
-        let productosEnCarrito =
-            localStorage.getItem("productosEnCarrito");
+        let productosEnCarrito = localStorage.getItem("productosEnCarrito");
 
-        if(productosEnCarrito == null){
+        if (productosEnCarrito == null) {
             alert('No hay productos en carrito');
+        } else {
+            productosEnCarrito = JSON.parse(productosEnCarrito);
         }
-        else{
-            productosEnCarrito =
-                JSON.parse(productosEnCarrito);
-        }
-        const i = productosEnCarrito.findIndex(p=> p.nombre_producto === producto.nombre_producto)
+        const i = productosEnCarrito.findIndex(p=> p.nombre_producto === producto.nombre_producto);
         
-        if(productosEnCarrito[i].cantidad >1){
+        if (productosEnCarrito[i].cantidad >1) {
             productosEnCarrito[i].cantidad--;
-        }else{
-            productosEnCarrito.splice(i,1)
+        } else {
+            productosEnCarrito.splice(i,1);
             const evento = new CustomEvent('carritoActualizado',{detail:{index:i}});
             window.dispatchEvent(evento);
         }
@@ -125,35 +115,37 @@ export class Lubricante extends Producto{
 
         <button class="botonCarrito"" id="quitarDelCarrito"><img height= "30px" src="../resources/icons/remove_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
             QuitarDelCarrito
-        </button></div>`
+        </button></div>`;
           
         const botonAgregarAlCarrito = HTMLProducto.querySelector("#quitarDelCarrito");
 
         botonAgregarAlCarrito.addEventListener("click", () => {
             Lubricante.quitarDelCarrito(this);
-    });
+        });
         return HTMLProducto;
 
+    }
+
+    createHtmlTr(){
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${this.nombre_producto}</td><td>${this.marca}</td><td>${this.tipo}</td><td>${this.densidad ?? 'No aplica'}</td><td>${this.formato ?? 'No aplica'}</td><td>$${this.precio}</td><td><button id="modificarLubButton" class="btn btn-warning btn-sm">Modificar</button><button id="eliminarLubButton" class="btn btn-danger btn-sm">Eliminar</button></td>`;
+        return tr;
     }
 }
 
 export class EsteticaVehicular extends Producto{
     categoria;
     constructor(marca, nombre_producto, categoria, formato, precio, url_imagen){
-        super(marca,nombre_producto,formato,precio
-                ,url_imagen)
+        super(marca, nombre_producto, formato, precio, url_imagen);
         this.categoria = categoria;
-                }
-
+    }
 
     createHtmlElement(){
         const HTMLProducto = document.createElement("div");
 
         HTMLProducto.innerHTML = `<div id="producto">
         <h6>${(this.nombre_producto).toUpperCase()}</h6>
-            <img 
-                src="${this.url_imagen}" 
-            >
+            <img src="${this.url_imagen}" alt="${this.nombre_producto}">
 
         <p>Marca: ${this.marca ?? 'No aplica'}</p><p>Categoria: ${this.categoria}</p><p>Formato: ${this.formato ?? 'No aplica'}</p><p>Precio: $${this.precio}</p>
 
@@ -164,34 +156,31 @@ export class EsteticaVehicular extends Producto{
         const botonAgregarAlCarrito = HTMLProducto.querySelector("#agregarAlCarrito");
 
         botonAgregarAlCarrito.addEventListener("click", () => {
-            Lubricante.agregarAlCarrito(this);
-    });
+            EsteticaVehicular.agregarAlCarrito(this);
+        });
         return HTMLProducto;
     }
 
     toJsonString(){
-        return JSON.stringify(this)
+        return JSON.stringify(this);
     }
 
     static agregarAlCarrito(producto){
+        let productosEnCarrito = localStorage.getItem("productosEnCarrito");
 
-        let productosEnCarrito =
-            localStorage.getItem("productosEnCarrito");
-
-        if(productosEnCarrito == null){
+        if (productosEnCarrito == null) {
             productosEnCarrito = [];
-        }
-        else{
-            productosEnCarrito =
-                JSON.parse(productosEnCarrito);
+        } else {
+            productosEnCarrito = JSON.parse(productosEnCarrito);
         }
         
-        const indice = productosEnCarrito.findIndex(p=> p.nombre_producto === producto.nombre_producto)
+        const indice = productosEnCarrito.findIndex(p=> p.nombre_producto === producto.nombre_producto);
         
-        if(indice <0){
-        
-        productosEnCarrito.push({...producto, cantidad:1})}
-        else{productosEnCarrito[indice].cantidad++}
+        if (indice <0) {
+            productosEnCarrito.push({...producto, cantidad:1});
+        } else {
+            productosEnCarrito[indice].cantidad++;
+        }
 
         localStorage.setItem(
             "productosEnCarrito",
@@ -200,36 +189,30 @@ export class EsteticaVehicular extends Producto{
     }
 
     static quitarDelCarrito(producto){
+        let productosEnCarrito = localStorage.getItem("productosEnCarrito");
 
-        let productosEnCarrito =
-            localStorage.getItem("productosEnCarrito");
-
-        if(productosEnCarrito == null){
+        if (productosEnCarrito == null) {
             alert('No hay productos en carrito');
+        } else {
+            productosEnCarrito = JSON.parse(productosEnCarrito);
         }
-        else{
-            productosEnCarrito =
-                JSON.parse(productosEnCarrito);
-        }
-        const i = productosEnCarrito.findIndex(p=> p.nombre_producto === producto.nombre_producto)
+        const i = productosEnCarrito.findIndex(p=> p.nombre_producto === producto.nombre_producto);
         
-        if(productosEnCarrito[i].cantidad >1){
+        if (productosEnCarrito[i].cantidad >1) {
             productosEnCarrito[i].cantidad--;
-        }else{
-        productosEnCarrito.splice(i,1)
-        const evento = new CustomEvent('carritoActualizado',{detail:{index:i}});
-        window.dispatchEvent(evento);}
-
+        } else {
+            productosEnCarrito.splice(i,1);
+            const evento = new CustomEvent('carritoActualizado',{detail:{index:i}});
+            window.dispatchEvent(evento);
+        }
 
         localStorage.setItem(
             "productosEnCarrito",
             JSON.stringify(productosEnCarrito)
         );
-        
     }
 
     createHtmlCarrito(){
-
         const HTMLProducto = document.createElement("div");
 
         HTMLProducto.innerHTML = `<div id="producto">
@@ -239,15 +222,21 @@ export class EsteticaVehicular extends Producto{
 
         <button class="botonCarrito"" id="quitarDelCarrito"><img height= "30px" src="../resources/icons/remove_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
             QuitarDelCarrito
-        </button></div>`
+        </button></div>`;
           
         const botonAgregarAlCarrito = HTMLProducto.querySelector("#quitarDelCarrito");
 
         botonAgregarAlCarrito.addEventListener("click", () => {
             EsteticaVehicular.quitarDelCarrito(this);
-    });
+        });
         return HTMLProducto;
 
+    }
+
+    createHtmlTr(){
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${this.nombre_producto}</td><td>${this.categoria}</td><td>${this.formato ?? 'No aplica'}</td><td>$${this.precio}</td><td><button class="btn btn-warning btn-sm" id="modificarEstButton">Modificar</button><button class="btn btn-danger btn-sm" id="eliminarEstButton">Eliminar</button></td>`;
+        return tr;
     }
 }
 

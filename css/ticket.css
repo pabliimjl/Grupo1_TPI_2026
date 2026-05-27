@@ -17,43 +17,6 @@ body {
     font-family: Montserrat;
 }
 
-
-#footer {
-    height: 60px; 
-    flex-shrink: 0; 
-    display: flex;
-    flex-direction: row;
-    background-color: aquamarine;
-    width: 100%;
-}
-
-#footer p{
-    margin-left: auto;
-    margin-right: 20px;
-    color: #817f96;
-    font-family: Montserrat;
-}
-#footer button{
-    align-self: center;
-    padding: 10px;
-    background-color: #0f9ea5;
-    border-radius: 5px;
-}
-
-#footer  a  img{
-    width: 50px;
-}
-
-#footer a {
-    margin: 0 20px 0 15px;
-}
-
-
-#footer button:active{
-    background-color: aquamarine;
-}
-
-
 #productos {
     flex-grow: 1; 
     min-height: 0;

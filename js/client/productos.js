@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const nombre = localStorage.getItem('nombre')
     saludo.innerHTML = `Hola ${nombre}!`
     mostrarLubricantes()
-})
+});
 
 function mostrarLubricantes(){
     limpiarProductos()
@@ -24,8 +24,6 @@ function mostrarLubricantes(){
     botonLubricantes.style.backgroundColor="#0f9ea5"
     console.log("lubricantes");
     agregarLubricantesGrilla();
-
-    
 }
 
 function mostrarEstetica(){

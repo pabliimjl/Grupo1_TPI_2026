@@ -1,28 +1,4 @@
 
-#footer {
-    height: 60px; 
-    flex-shrink: 0; 
-    display: flex;
-    flex-direction: row;
-    background-color: aquamarine;
-    width: 100%;
-}
-#footer p{
-    margin-left: auto;
-    margin-right: 20px;
-    color: #817f96;
-    font-family: Montserrat;
-}
-
-#footer  a  img{
-    width: 50px;
-}
-
-#footer a {
-    margin: 0 20px 0 15px;
-}
-
-
 .botonCarrito{
     background-color:#0f9ea5;
     border-radius: 5px;
