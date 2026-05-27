@@ -10,6 +10,22 @@ html, body {
   overflow: hidden; 
 }
 
+#selectorPagina{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: rights;
+}
+
+#paginaAnterior{
+    margin-left: auto;
+}
+
+#selectorPagina p{
+    padding:20px;
+}
+
+
 body {
     display: flex;
     flex-direction: column;
