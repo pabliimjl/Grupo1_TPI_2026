@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box; 
+}
+
+html, body {
+  height: 100vh; 
+  width: 100vw;  
+  margin: 0;     
+  padding: 0;
+  overflow: hidden; 
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: aquamarine;
+    font-family: Montserrat;
+}
+
+#productos {
+    flex-grow: 1; 
+    min-height: 0;
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    justify-content: flex-start;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    flex-shrink: 0; 
+}
