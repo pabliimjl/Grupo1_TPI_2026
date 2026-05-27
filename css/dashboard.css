@@ -1,0 +1,68 @@
+/* Estilos básicos para el contenedor */
+#productos {
+    width: 100vh;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos para las pestañas */
+.tabs {
+    overflow: hidden;
+    border-bottom: 2px solid #ccc;
+    display: flex;
+}
+
+.tab-button {
+    background-color: #f1f1f1;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 20px;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    flex: 1;
+    text-align: center;
+}
+
+.tab-button:hover {
+    background-color: #ddd;
+}
+
+.tab-button.active {
+    background-color: #fff;
+    border-bottom: 3px solid #007BFF;
+    font-weight: bold;
+}
+
+/* Contenido de cada pestaña */
+.tab-content {
+    display: none;
+    padding: 20px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Estilos para las tablas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #999;
+}
+
+th, td {
+    padding: 8px 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #007BFF;
+    color: white;
+}

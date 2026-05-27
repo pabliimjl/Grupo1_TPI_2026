@@ -1,41 +1,25 @@
-body{
+html {
+    background-color: #0f9ea5;
+    color: white;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    height: 100vh; 
+    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #F0F0F0;
-    font-family:Montserrat;
-
+    justify-content: top; 
+    font-family: Montserrat, sans-serif;
 }
 
-#labelIngreso{
-
-    margin-top: 80px;
-}
-
-
-#labelIngreso input{
-    margin: 10px;
-
-}
-
-#aceptarIngreso{
-    font-family: Montserrat;
-    margin-top: 50px;
+input {
+    margin: 20px;
     padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #0f9ea5;
+    width: 250px;
 }
 
-.header{
-    display: flex;
-    flex-direction: row;
-}
-
-.header > div{
-    margin-left: 15px;
-}
-
-.divProductos {
-    padding: 10px;
-    border-radius: 7px;
-    border-width: 5px;
-    border-color: black;
-}
