@@ -61,6 +61,7 @@ export class Lubricante extends Producto{
     }
 
     static agregarAlCarrito(lubricante){
+        this.agregarBurbujaConfirmacion(lubricante.nombre_producto)
 
         let productosEnCarrito =
             localStorage.getItem("productosEnCarrito");
@@ -84,6 +85,23 @@ export class Lubricante extends Producto{
             "productosEnCarrito",
             JSON.stringify(productosEnCarrito)
         );
+    }
+
+    static agregarBurbujaConfirmacion(nombreProducto) {
+        const contenedor = document.getElementById('contenedor-notificaciones');
+
+        const nuevaBurbuja = document.createElement('div');
+        nuevaBurbuja.className = 'burbuja';
+        nuevaBurbuja.innerText = `Se añadió ${nombreProducto} al carrito`;
+
+        contenedor.appendChild(nuevaBurbuja);
+
+    setTimeout(() => {
+            nuevaBurbuja.classList.add('desvanecer');
+            setTimeout(() => {
+                nuevaBurbuja.remove();
+            }, 500);
+        }, 4500); 
     }
 
     static quitarDelCarrito(producto){
@@ -174,6 +192,7 @@ export class EsteticaVehicular extends Producto{
     }
 
     static agregarAlCarrito(producto){
+        this.agregarBurbujaConfirmacion(producto.nombre_producto)
 
         let productosEnCarrito =
             localStorage.getItem("productosEnCarrito");
@@ -197,6 +216,23 @@ export class EsteticaVehicular extends Producto{
             "productosEnCarrito",
             JSON.stringify(productosEnCarrito)
         );
+    }
+
+    static agregarBurbujaConfirmacion(nombreProducto) {
+        const contenedor = document.getElementById('contenedor-notificaciones');
+
+        const nuevaBurbuja = document.createElement('div');
+        nuevaBurbuja.className = 'burbuja';
+        nuevaBurbuja.innerText = `Se añadió ${nombreProducto} al carrito`;
+
+        contenedor.appendChild(nuevaBurbuja);
+
+    setTimeout(() => {
+            nuevaBurbuja.classList.add('desvanecer');
+            setTimeout(() => {
+                nuevaBurbuja.remove();
+            }, 500);
+        }, 4500); 
     }
 
     static quitarDelCarrito(producto){

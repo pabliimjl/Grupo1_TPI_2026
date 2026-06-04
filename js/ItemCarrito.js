@@ -40,6 +40,33 @@ export class ItemCarrito{
         
     }
 
+    static eliminar(producto){
+
+        let productosEnCarrito =
+            localStorage.getItem("productosEnCarrito");
+
+        if(productosEnCarrito == null){
+            alert('No hay productos en carrito');
+        }
+        else{
+            productosEnCarrito =
+        JSON.parse(productosEnCarrito);
+        }
+        const i = productosEnCarrito.findIndex(p=> p.nombre_producto === producto.nombre_producto)
+        
+        
+        productosEnCarrito.splice(i,1)
+        const evento = new CustomEvent('itemEliminado',{detail:{index:i}});
+        window.dispatchEvent(evento);
+
+
+        localStorage.setItem(
+            "productosEnCarrito",
+            JSON.stringify(productosEnCarrito)
+        );
+        
+    }
+
     static agregarUno(item){
         console.log(item);
         
@@ -52,7 +79,7 @@ export class ItemCarrito{
         const i = productosEnCarrito.findIndex(p=> p.nombre_producto === item.nombre_producto)
         console.log(i);
         
-        productosEnCarrito[i].cantidad++;
+        productosEnCarrito[i].cantidad++;eliminar
 
         const evento = new CustomEvent('carritoActualizado',{detail:{index:i,suma:1}})
         window.dispatchEvent(evento);
@@ -77,6 +104,9 @@ export class ItemCarrito{
             -1
         </button><button class="botonCarrito"" id="agregarUno"><img height= "20px" src="../resources/icons/add_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
             +1
+        </button>
+        <button class="botonCarrito"" style="background-color:#ff746c" id="eliminar"><img height= "20px" src="../resources/icons/delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
+            Eliminar
         </button></div>`
           
         const botonQuitarUno= HTMLItem.querySelector("#quitarUno");
@@ -84,11 +114,17 @@ export class ItemCarrito{
         botonQuitarUno.addEventListener("click", () => {
             ItemCarrito.quitarDelCarrito(this);
 
-    });
+        });
         const botonAgregarUno = HTMLItem.querySelector('#agregarUno');
         botonAgregarUno.addEventListener("click",()=>{
             ItemCarrito.agregarUno(this)
-        })
+        });
+
+        const botonEliminar = HTMLItem.querySelector('#eliminar');
+        botonEliminar.addEventListener("click",()=>{
+            ItemCarrito.eliminar(this)
+        });
+
 
         return HTMLItem;
 

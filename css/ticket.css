@@ -11,9 +11,10 @@ html, body {
 }
 
 body {
+    color:white;
     display: flex;
     flex-direction: column;
-    background-color: aquamarine;
+    background-color: #0f9ea5;
     font-family: Montserrat;
 }
 
@@ -23,14 +24,14 @@ body {
     flex-shrink: 0; 
     display: flex;
     flex-direction: row;
-    background-color: aquamarine;
+    background-color: skyblue;
     width: 100%;
 }
 
 #footer p{
     margin-left: auto;
     margin-right: 20px;
-    color: #817f96;
+    color: white;
     font-family: Montserrat;
 }
 #footer button{
@@ -38,6 +39,7 @@ body {
     padding: 10px;
     background-color: #0f9ea5;
     border-radius: 5px;
+    color:white
 }
 
 #footer button:active{

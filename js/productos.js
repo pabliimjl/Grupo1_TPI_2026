@@ -1,4 +1,4 @@
-import { EsteticaVehicular, Lubricante, Producto } from "./producto.js";
+import { EsteticaVehicular, Lubricante, Producto } from "./Producto.js";
 
 const botonLubricantes = document.getElementById("lubricantes")
 botonLubricantes.addEventListener("click",mostrarLubricantes);
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 function mostrarLubricantes(){
     limpiarProductos()
     botonEsteticaVehicular.style.backgroundColor="skyblue"
-    botonLubricantes.style.backgroundColor="#0f9ea5"
+    botonLubricantes.style.backgroundColor="aquamarine"
     mostrarPaginaLubricantes(paginaLubricantes);
     estoyLubricantes = true;
     numeroPagina.innerHTML = paginaLubricantes;
@@ -45,7 +45,7 @@ function mostrarLubricantes(){
 function mostrarEstetica(){
     limpiarProductos()
     botonLubricantes.style.backgroundColor="skyblue"
-    botonEsteticaVehicular.style.backgroundColor="#0f9ea5"
+    botonEsteticaVehicular.style.backgroundColor="aquamarine"
     mostrarPaginaEstetica(paginaEstetica)
     estoyLubricantes = false;
     numeroPagina.innerHTML = paginaEstetica;
@@ -81,8 +81,6 @@ function bajarPagina(){
             alert('Estas en la primer pagina')
         }
     }
-    console.log(paginaLubricantes);
-    console.log(paginaEstetica);
 }
 async function cargarLubricantes(){
     const response = await fetch("../resources/productos/lubricantes.json")
