@@ -17,7 +17,7 @@ function aceptarIngreso(){
     if(nombre != ""){
         inputNombre.value = ""
         localStorage.setItem('nombre', nombre)
-        window.location.href = "../html/productos.html"}
+        window.location.href = "./html/productos.html"}
     else{
         alert("Ingrese un nombre por favor.")
     }
