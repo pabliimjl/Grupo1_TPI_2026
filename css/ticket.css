@@ -11,41 +11,56 @@ html, body {
 }
 
 body {
-    color:white;
+    color: white;
     display: flex;
     flex-direction: column;
-    background-color: #0f9ea5;
-    font-family: Montserrat;
+    background-color: #121826; 
+    font-family: 'Montserrat', sans-serif;
 }
-
 
 #footer {
     height: 60px; 
     flex-shrink: 0; 
     display: flex;
     flex-direction: row;
-    background-color: skyblue;
+    background-color: #1a202c; 
     width: 100%;
+    align-items: center; 
+    padding: 0 20px;
+    border-top: 1px solid #2d3748;
 }
 
-#footer p{
+#footer p {
     margin-left: auto;
     margin-right: 20px;
-    color: white;
-    font-family: Montserrat;
+    color: #a0aec0; 
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 0;
+    margin-bottom: 0;
 }
-#footer button{
+
+#footer button {
     align-self: center;
-    padding: 10px;
-    background-color: #0f9ea5;
-    border-radius: 5px;
-    color:white
+    padding: 10px 20px;
+    background-color: #172DE2; 
+    border-radius: 6px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(23, 45, 226, 0.2);
+    transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-#footer button:active{
-    background-color: aquamarine;
+#footer button:hover {
+    background-color: #1020A1; 
 }
 
+#footer button:active {
+    background-color: #0d1a80; 
+    transform: scale(0.97); 
+}
 
 #productos {
     flex-grow: 1; 
@@ -54,14 +69,16 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     justify-content: flex-start;
+    gap: 10px;
 }
 
 .header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px 0;
+    padding: 15px 0;
     flex-shrink: 0; 
+    background-color: #172DE2; 
 }

@@ -35,8 +35,8 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 
 function mostrarLubricantes(){
     limpiarProductos()
-    botonEsteticaVehicular.style.backgroundColor="skyblue"
-    botonLubricantes.style.backgroundColor="aquamarine"
+    botonEsteticaVehicular.style.backgroundColor="#1020A1"
+    botonLubricantes.style.backgroundColor="#0d1a80"
     mostrarPaginaLubricantes(paginaLubricantes);
     estoyLubricantes = true;
     numeroPagina.innerHTML = paginaLubricantes;
@@ -44,8 +44,8 @@ function mostrarLubricantes(){
 
 function mostrarEstetica(){
     limpiarProductos()
-    botonLubricantes.style.backgroundColor="skyblue"
-    botonEsteticaVehicular.style.backgroundColor="aquamarine"
+    botonLubricantes.style.backgroundColor="#1020A1"
+    botonEsteticaVehicular.style.backgroundColor="#0d1a80"
     mostrarPaginaEstetica(paginaEstetica)
     estoyLubricantes = false;
     numeroPagina.innerHTML = paginaEstetica;

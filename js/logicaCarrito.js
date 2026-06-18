@@ -72,9 +72,11 @@ function agregarProductosALaGrilla(){
 }
 
 function crearTicket(){
-
     const items = obtenerProductosEnLocal()
-    if(items!= null){
+    console.log(items);
+    
+
+    if(items!= null && items.length>0){
     const nombre_comprador = localStorage.getItem('nombre')
     let id_ticket;
     let tickets = localStorage.getItem('tickets')
@@ -85,7 +87,6 @@ function crearTicket(){
         tickets = JSON.parse(tickets)
         id_ticket = (tickets[tickets.length-1].id_ticket)+1;
     }
-    console.log(id_ticket);
     
     const ticketNuevo = new Ticket(id_ticket,nombre_comprador,items)
     tickets.push(ticketNuevo)
@@ -97,5 +98,7 @@ function crearTicket(){
 
     localStorage.removeItem('productosEnCarrito')
     pTotal.innerHTML="";
-    window.location.href = "./ticket.html"}
+    window.location.href = "./ticket.html"
+
+    }else{alert("No hay productos en el carrito!")}
 }

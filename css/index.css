@@ -1,50 +1,88 @@
 html {
-    background-color: #0f9ea5;
+    background-color: #121826; 
     color: white;
     height: 100%;
     margin: 0;
 }
 
 body {
-    height: 100vh; /* Ocupa el 100% de la ventana */
+    height: 100vh; 
     margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Centra el contenido verticalmente */
-    font-family: Montserrat, sans-serif;
+    justify-content: center; 
+    font-family: 'Montserrat', sans-serif;
+    background-color: #121826; 
 }
 
-/* Mejora para el formulario */
 #labelIngreso {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px; /* Separa el título, el input y el botón */
+    background-color: #1A202C; 
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    border: 1px solid #2D3748; 
+}
+
+.formularioIngreso {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 280px;
+}
+
+.formularioIngreso label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    color: #FFFFFF;
 }
 
 input {
-    margin: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    width: 250px;
+    margin-top: 30px; 
+    padding: 14px 20px;
+    border-radius: 8px;
+    border: 2px solid #4A5568; 
+    background-color: #F8F9FA; 
+    color: #1A202C; 
+    width: 100%; 
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+input:focus {
+    border-color: #172DE2; 
 }
 
 #aceptarIngreso {
-    padding: 10px 30px;
-    background-color: white;
-    color: #0f9ea5;
+    margin-top: 50px;
+    padding: 14px 0; 
+    background-color: #172DE2; 
+    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-weight: bold;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
     cursor: pointer;
-    transition: background 0.3s;
+    
+    width: 100%; 
+    box-shadow: 0 4px 14px rgba(23, 45, 226, 0.4);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+#aceptarIngreso:hover {
+    background-color: #1020A1; 
 }
 
 #aceptarIngreso:active {
-
-    background-color: #e0fdf5;
-
-    transform: scale(0.95);
+    background-color: #0d1a80;
+    transform: scale(0.96); 
 }

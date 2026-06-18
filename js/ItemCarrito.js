@@ -105,7 +105,7 @@ export class ItemCarrito{
         </button><button class="botonCarrito"" id="agregarUno"><img height= "20px" src="../resources/icons/add_shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
             +1
         </button>
-        <button class="botonCarrito"" style="background-color:#ff746c" id="eliminar"><img height= "20px" src="../resources/icons/delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
+        <button class="botonCarrito"" style="background-color:#718096" id="eliminar"><img height= "20px" src="../resources/icons/delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>
             Eliminar
         </button></div>`
           
