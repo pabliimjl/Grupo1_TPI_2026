@@ -16,6 +16,18 @@ body {
     flex-direction: column;
     background-color: #121826; 
     font-family: 'Montserrat', sans-serif;
+    text-align: right;
+}
+
+table> p{
+margin-right: 7%;
+}
+
+tr{
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    text-align: center;
 }
 
 #footer {
