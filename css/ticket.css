@@ -30,26 +30,26 @@ tr{
     text-align: center;
 }
 
+
 #footer {
     height: 60px; 
     flex-shrink: 0; 
     display: flex;
     flex-direction: row;
-    background-color: #1a202c; 
+    background-color: #232d3e; 
     width: 100%;
     align-items: center; 
-    padding: 0 20px;
-    border-top: 1px solid #2d3748;
 }
 
 #footer p {
     margin-left: auto;
     margin-right: 20px;
-    color: #a0aec0; 
+    color: #E2E8F0; 
     font-family: 'Montserrat', sans-serif;
     margin-top: 0;
     margin-bottom: 0;
 }
+
 
 #footer button {
     align-self: center;
@@ -92,5 +92,5 @@ tr{
     align-items: center;
     padding: 15px 0;
     flex-shrink: 0; 
-    background-color: #172DE2; 
+    background-color: #232d3e; 
 }

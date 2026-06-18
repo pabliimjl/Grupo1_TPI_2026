@@ -186,7 +186,7 @@ body {
     align-items: center;
     padding: 20px 0;
     flex-shrink: 0; 
-    background-color: #172DE2;
+    background-color: #232d3e;
 }
 
 #selectores {
@@ -242,7 +242,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center; 
-    background-color: #172DE2; 
+    background-color: #232d3e; 
     width: 100%;
     position: relative;
     padding: 0 20px;
