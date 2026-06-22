@@ -5,20 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito</title>
     <link rel="stylesheet" href="../css/carrito.css">
+    <link rel="icon" type="image/png" href="../resources/png/favicon.png">
 </head>
 <body>
+    <div id ="logomasheader">
+    <img id = "logo" style="width: 210px;" src="../resources/png/logo.png">
     <section class = "header">
         <h2 id="saludo">Carrito de compras</h2>
     </section>
+    <div id="participantes">
+        <p>Alumnos:</p><a href="https://github.com/pabliimjl" target="_blank" rel="noopener noreferrer">Pablo Jesus</a> <a href="https://github.com/jatilcara1988"target="_blank" rel="noopener noreferrer">Juan Tilcara</a>
+    </div>
+    </section>
+    </div>
+    <div class="modal-overlay" id="modal-container">
+        <div class="modal-box">
+            <h2>Confirmacion</h2>
+            <p>¿Estás seguro que desea confirmar la compra?</p>
+            <div id="botones">
+                <button id="confirmarCarrito">Aceptar</button>
+                <button id="cerrar-modal">Cancelar</button>
+            </div>
+        </div>
+     </div>
      <div id = "productos">
+
     </div>
     <footer id="footer">
-        <a href="./productos.html"><img src="../resources/icons/arrow_back_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/></a>
+        <button class="boton-modo" id="btnTema">☀️</button>
+        <a href="./productos.html"><img src="../resources/icons/arrow_back_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>Atrás</a>
         <p id = "total"></p>
-        <div id="confirmarCarrito">Confirmar Carrito</div>
-        <p>Pablo Jesus <br> Juan Tilcara</p>
+        <div id="abrir-modal">Confirmar Carrito</div>
+        <p><br></p>
     </footer>
     
 </body>
 <script type="module" src="../js/logicaCarrito.js"></script>
+<script src="../js/selectorTema.js"></script>
 </html>

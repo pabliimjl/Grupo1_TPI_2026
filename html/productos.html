@@ -4,30 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/productos.css"> 
+    <link rel="icon" type="image/png" href="../resources/png/favicon.png">
     <title>Productos</title>
 </head>
 <body>
+    <div id ="logomasheader">
+    <img id = "logo" style="width: 210px;" src="../resources/png/logo.png">
     <section class = "header">
-        <h2 id="saludo">Hola!</h2>
         <h3>Productos</h3>
+        <h2 id="saludo">Hola!</h2>
         <div id="selectores">
             <div class="divProductos" id="lubricantes">Lubricantes</div>
             <div class="divProductos" id="esteticaVehicular">Estetica vehicular</div>
-        </div>    
+        </div>
     </section>
+    <div id="participantes">
+        <p>Alumnos:</p><a href="https://github.com/pabliimjl" target="_blank" rel="noopener noreferrer">Pablo Jesus</a> <a href="https://github.com/jatilcara1988"target="_blank" rel="noopener noreferrer">Juan Tilcara</a>
+    </div>
+    </div>
     <div id = "productos">
     </div>
     <div id="contenedor-notificaciones" class="notificacion-container"></div>
     <footer id="footer">
-        <a href="../index.html"><img src="../resources/icons/arrow_back_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/></a>
-        <a href="./carrito.html"><img src="../resources/icons/shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/></a>
+        <button class="boton-modo" id="btnTema">☀️</button>
+        <a href="../index.html"><img src="../resources/icons/arrow_back_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>Atrás</a>
+        <a href="./carrito.html"><img src="../resources/icons/shopping_cart_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"/>Carrito</a>
         <div id = "selectorPagina">
-        <button class = "paginacion" id = "paginaAnterior">Pagina Anterior</button>
-        <p id = "numeroPagina">1</p>
-        <button class = "paginacion" id = "paginaSiguiente">Pagina Siguiente</button>
+            <button class = "paginacion" id = "paginaAnterior">Pagina Anterior</button>
+            <p id = "numeroPagina">1</p>
+            <button class = "paginacion" id = "paginaSiguiente">Pagina Siguiente</button>
         </div>
-        <p>Pablo Jesus <br> Juan Tilcara</p>
     </footer>
 </body>
 <script type="module" src="../js/productos.js"></script>
+<script src="../js/selectorTema.js"></script>
 </html>

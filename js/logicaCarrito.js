@@ -1,6 +1,25 @@
 import { ItemCarrito } from "./ItemCarrito.js";
 import {Ticket} from "./Ticket.js"
 
+
+const botonAbrir = document.getElementById('abrir-modal');
+const botonCerrar = document.getElementById('cerrar-modal');
+const modalContainer = document.getElementById('modal-container');
+
+botonAbrir.addEventListener('click', () => {
+    modalContainer.classList.add('mostrar');
+});
+
+botonCerrar.addEventListener('click', () => {
+    modalContainer.classList.remove('mostrar');
+});
+
+modalContainer.addEventListener('click', (event) => {
+    if (event.target === modalContainer) {
+        modalContainer.classList.remove('mostrar');
+    }
+});
+
 const grillaProductos = document.getElementById("productos")
 let productosEnCarrito = []
 const pTotal = document.getElementById("total")

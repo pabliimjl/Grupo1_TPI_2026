@@ -5,11 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket</title>
     <link rel="stylesheet" href="../css/ticket.css">
+    <link rel="icon" type="image/png" href="../resources/png/favicon.png">
 </head>
 <body>
+    <div id ="logomasheader">
+    <img id = "logo" style="width: 210px;background-color: #E2E8F0;" src="../resources/png/logo.png">
+   
     <section class = "header">
         <h2 id="saludo">Detalle del ticket</h2>
     </section>
+    
+    <div id="participantes">
+        <p>Alumnos:</p><a href="https://github.com/pabliimjl" target="_blank" rel="noopener noreferrer">Pablo Jesus</a> <a href="https://github.com/jatilcara1988"target="_blank" rel="noopener noreferrer">Juan Tilcara</a>
+    </div>
+    </section>
+    </div>
      <div id = "productos">
         <table id = "ticket">
             <th>ID</th>
@@ -22,13 +32,16 @@
         <p id = "total"></p>
     </div>
     <footer id="footer">
+        <button class="boton-modo" id="btnTema">☀️</button>
         <p></p>
-        <button id="descargarTicket">Descargar ticket</button>
-        <p>Pablo Jesus <br> Juan Tilcara</p>
+        <button class= "botones-footer" id="volverAlInicio" onclick="window.location.href='../index.html'">Volver al inicio</button>
+        <button class= "botones-footer" id="descargarTicket">Descargar ticket</button>
+        <p><br></p>
     </footer>
     
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 <script type="module" src="../js/logicaTicket.js"></script>
+<script src="../js/selectorTema.js"></script>
 </html>
