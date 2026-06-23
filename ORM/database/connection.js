@@ -6,25 +6,37 @@ const connection = new Sequelize(
     process.env.DB_USERNAME,
     process.env.DB_PASSWORD, {
         host: process.env.DB_HOST,
-        port: process.env.DB_PORT,
-        dialect: 'mysql', // o 'postgres', 'sqlite', 'mariadb', etc.
+        port: process.env.DB_PORT || 5432,
+        dialect: 'postgres', 
         logging: false, // Desactiva los logs de Sequelize
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false // Permite la conexión segura sin certificados locales
+            }
+        }
 });
-
 const createDatabase = new Sequelize(
-    '',
+    'postgres', // Conecta a la BD por defecto del sistema de Postgres
     process.env.DB_USERNAME,
     process.env.DB_PASSWORD, {
         host: process.env.DB_HOST,
-        port: process.env.DB_PORT,
-        dialect: 'mysql',
+        port: process.env.DB_PORT || 5432,
+        dialect: 'postgres',
         logging: false,
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            }
+        }
 });
+
 
 async function checkDatabaseExistOrCreate() {
     try {
         console.log('Verificando base de datos...');
-        const [results] = await createDatabase.query(`SHOW DATABASES LIKE '${process.env.DB_NAME}'`);
+        const [results] = await createDatabase.query(`SELECT datname FROM pg_database WHERE datname = '${process.env.DB_NAME}'`);
         if (results.length === 0) {
             //await createDatabase.query(`CREATE DATABASE ${process.env.DB_NAME}`);
             await createDatabase.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME};`);

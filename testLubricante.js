@@ -1,5 +1,5 @@
 const sequelize = require('./ORM/database/connection'); // Tu conexión
-const Lubricante = require('./ORM/model/EsteticaVehicular');  // Tu modelo corregido
+const Lubricante = require('./ORM/model/Lubricante');  // Tu modelo corregido
 
 async function inicializarBaseDeDatos() {
   try {
@@ -9,7 +9,7 @@ async function inicializarBaseDeDatos() {
 
     // sync({ alter: true }) crea la tabla si no existe, o la actualiza si cambió
     await sequelize.sync({ alter: true });
-    console.log('¡La tabla "esteticas-vehicular" ha sido creada con éxito!');
+    console.log('¡La tabla "lubricantes" ha sido creada con éxito!');
     
     process.exit(0); // Cierra el proceso sin errores
   } catch (error) {
