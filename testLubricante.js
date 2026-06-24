@@ -1,5 +1,5 @@
 const sequelize = require('./ORM/database/connection'); // Tu conexión
-const Lubricante = require('./ORM/model/Lubricante');  // Tu modelo corregido
+const Lubricante = require('./ORM/models/Lubricante');  // Tu modelo corregido
 
 async function inicializarBaseDeDatos() {
   try {

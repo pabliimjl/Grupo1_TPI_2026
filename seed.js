@@ -1,42 +1,55 @@
-const fs = require('fs');
-const path = require('path');
-const sequelize = require('./ORM/database/connection');
+const fs = require("fs");
+const path = require("path");
 
-// Importa tus modelos corregidos
-const Lubricante = require('./ORM/model/Lubricante'); 
-const EsteticaVehicular = require('./ORM/model/EsteticaVehicular'); 
+const sequelize = require("./ORM/database/connection");
 
-async function cargarDatos() {
-  try {
-    // 1. Conectar y asegurar que las tablas existan
-    await sequelize.authenticate();
-    console.log('🔄 Conectado a la base de datos. Sincronizando tablas...');
-    await sequelize.sync({ alter: true }); 
+const {
+    Producto,
+    Lubricante,
+    EsteticaVehicular
+} = require("./ORM/models")(sequelize);
 
-    // 2. Leer y parsear los archivos JSON
-    // Ajusta las rutas ('./ruta/al/archivo.json') si tus JSON están en otra carpeta
-    const rutaLubricantes = path.join(__dirname, './resources/productos/lubricantes.json');
-    const rutaEstetica = path.join(__dirname, './resources/productos/esteticaVehicular.json');
+async function seed() {
 
-    const datosLubricantes = JSON.parse(fs.readFileSync(rutaLubricantes, 'utf-8'));
-    const datosEstetica = JSON.parse(fs.readFileSync(rutaEstetica, 'utf-8'));
+    try {
 
-    // 3. Insertar los datos de forma masiva
-    console.log('⏳ Insertando datos de Lubricantes...');
-    await Lubricante.bulkCreate(datosLubricantes);
-    console.log(`✅ ¡${datosLubricantes.length} lubricantes guardados con éxito!`);
+        await sequelize.authenticate();
 
-    console.log('⏳ Insertando datos de Estética Vehicular...');
-    await EsteticaVehicular.bulkCreate(datosEstetica);
-    console.log(`✅ ¡${datosEstetica.length} productos de estética guardados con éxito!`);
+        const rutaEstetica = path.join(
+            __dirname,
+            "resources",
+            "productos",
+            "esteticaVehicular.json"
+        );
 
-    console.log('\n🚀 ¡Proceso de carga masiva finalizado correctamente!');
-    process.exit(0);
+        const estetica = JSON.parse(
+            fs.readFileSync(rutaEstetica, "utf8")
+        );
 
-  } catch (error) {
-    console.error('❌ Error durante la carga de datos:', error);
-    process.exit(1);
-  }
+        for (const item of estetica) {
+
+            const producto = await Producto.create({
+                marca: item.marca ?? 'Sin marca',
+                nombre_producto: item.producto,
+                formato: item.formato ?? 'No especificado',
+                precio: item.precio_bruto,
+                url_imagen: item.url,
+                tipo_producto: "estetica_vehicular"
+            });
+
+            await EsteticaVehicular.create({
+                producto_id: producto.id,
+                categoria: item.categoria
+            });
+        }
+
+        console.log("✔ Estética cargada");
+
+    } catch (err) {
+        console.error(err);
+    } finally {
+        await sequelize.close();
+    }
 }
 
-cargarDatos();
+seed();
