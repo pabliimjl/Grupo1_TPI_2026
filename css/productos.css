@@ -268,6 +268,10 @@ body{
     z-index:1000;
 }
 
+#logo{
+    width: 210px;
+    padding: 20px;
+}
 .burbuja{
     background-color:var(--background-color-botones);
     color:var(--color-texto);
@@ -318,6 +322,9 @@ a{
 @media (max-width:900px){
     #productos{grid-template-columns:repeat(2,1fr);}
 
+    #logo {
+        width: 180px;
+    }
     #selectorPagina{
         scale: 0.90;
         left: auto;
@@ -339,6 +346,14 @@ a{
 
     #footer img, p{
         scale: 0.75;
+    }
+
+    #logo {
+        width: 120px;
+    }
+
+    #logomasheader{
+        width: 100%;
     }
 
     #selectorPagina{
