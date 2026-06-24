@@ -15,6 +15,37 @@ async function seed() {
 
         await sequelize.authenticate();
 
+        const rutaLubricantes = path.join(
+            __dirname,
+            "resources",
+            "productos",
+            "lubricantes.json"
+        );
+
+        const lubricantes = JSON.parse(
+            fs.readFileSync(rutaLubricantes, "utf8")
+        );
+
+        for (const item of lubricantes) {
+
+            const producto = await Producto.create({
+                marca: item.marca,
+                nombre_producto: item.producto,
+                formato: item.formato,
+                precio: item.precio_bruto,
+                url_imagen: item.url,
+                tipo_producto: "lubricante"
+            });
+
+            await Lubricante.create({
+                producto_id: producto.id,
+                densidad: item.densidad,
+                tipo: item.tipo
+            });
+        }
+
+        console.log("✔ Lubricantes cargados");
+/*
         const rutaEstetica = path.join(
             __dirname,
             "resources",
@@ -43,7 +74,7 @@ async function seed() {
             });
         }
 
-        console.log("✔ Estética cargada");
+        console.log("✔ Estética cargada");*/
 
     } catch (err) {
         console.error(err);
