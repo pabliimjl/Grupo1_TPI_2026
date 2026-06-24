@@ -6,6 +6,7 @@ package-lock.json
 
 # Environment variables
 .env
+.env copy
 
 # Editor directories and files
 .vscode/

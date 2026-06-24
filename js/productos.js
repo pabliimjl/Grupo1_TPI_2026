@@ -82,11 +82,20 @@ function bajarPagina(){
         }
     }
 }
-async function cargarLubricantes(){
-    const response = await fetch("../resources/productos/lubricantes.json")
-    const lubricantes = await response.json()
-    
-    return lubricantes
+
+async function cargarLubricantes() {
+
+    const response = await fetch("https://grupo1-tpi-2026.onrender.com/api/productos/lubricantes");
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error API:", errorText);
+        throw new Error("Error al cargar lubricantes");
+    }
+
+    const lubricantes = await response.json();
+
+    return lubricantes;
 }
 
 async function agregarLubricantesAlArray(){
@@ -102,7 +111,13 @@ async function agregarLubricantesAlArray(){
 }
 
 async function cargarEsteticaVehicular(){
-    const response = await fetch("../resources/productos/esteticaVehicular.json")
+    const response = await fetch("https://grupo1-tpi-2026.onrender.com/api/productos/estetica");
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error API:", errorText);
+        throw new Error("Error al cargar estetica");
+    }
     const esteticaVehicular = await response.json()
     
     
