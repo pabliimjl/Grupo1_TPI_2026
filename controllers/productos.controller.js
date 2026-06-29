@@ -1,9 +1,11 @@
 const puppeteer = require("puppeteer");
-const { Producto, Lubricante, EsteticaVehicular, Venta, DetalleVenta} = require("../ORM/models")(require("../ORM/database/connection"));
+const bcrypt = require("bcrypt");
+const { Producto, Lubricante, EsteticaVehicular, Venta, DetalleVenta, Usuario} = require("../ORM/models")(require("../ORM/database/connection"));
 
 function mapearLubricante(p) {
 
     return {
+        id:p.id,
         marca: p.marca,
         producto: p.nombre_producto,
         formato: p.formato,
@@ -16,6 +18,7 @@ function mapearLubricante(p) {
 
 function mapearEstetica(p) {
     return {
+        id:p.id,
         marca: p.marca ?? null,
         producto: p.nombre_producto,
         categoria: p.esteticaVehicular?.categoria,
@@ -138,7 +141,7 @@ async function obtenerEstetica(req, res) {
 }
 
 async function registrarVenta(req, res) {
-
+    
     try {
 
         const { nombre_comprador, items } = req.body;
@@ -276,9 +279,95 @@ async function obtenerTicket(req, res) {
     }
 }
 
+
+async function registrarUsuario(req, res) {
+    
+  const saltRounds = Number(process.env.SALTOS_BCRYPT);
+
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        mensaje: "Email y contraseña son obligatorios"
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    await Usuario.create({
+      email,
+      password: hashedPassword
+    });
+
+    return res.status(201).json({
+      mensaje: "Usuario creado"
+    });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      mensaje: "Error al registrar"
+    });
+  }
+}
+
+async function login(req, res) {
+  try {
+    const { email, password } = req.body;
+
+    // Validar datos
+    if (!email || !password) {
+      return res.status(400).json({
+        mensaje: "Email y contraseña son obligatorios"
+      });
+    }
+
+    // Buscar usuario
+    const usuario = await Usuario.findOne({
+      where: { email }
+    });
+
+    if (!usuario) {
+      return res.status(401).json({
+        mensaje: "Email o contraseña incorrectos"
+      });
+    }
+
+    // Comparar contraseña
+    const passwordCorrecta = await bcrypt.compare(
+      password,
+      usuario.password
+    );
+
+    if (!passwordCorrecta) {
+      return res.status(401).json({
+        mensaje: "Email o contraseña incorrectos"
+      });
+    }
+
+    // Login exitoso
+    return res.status(200).json({
+      mensaje: "Login exitoso",
+      usuario: {
+        id: usuario.id,
+        email: usuario.email
+      }
+    });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      mensaje: "Error al iniciar sesión"
+    });
+  }
+}
+
 module.exports = {
     obtenerLubricantes,
     obtenerEstetica,
     registrarVenta,
-    obtenerTicket
+    obtenerTicket,
+    registrarUsuario,
+    login
 };

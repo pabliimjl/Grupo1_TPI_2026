@@ -85,7 +85,7 @@ function bajarPagina(){
 
 async function cargarLubricantes() {
 
-    const response = await fetch("https://grupo1-tpi-2026.onrender.com/api/productos/lubricantes");
+    const response = await fetch("http://localhost:3000/api/lubricantes");
 
     if (!response.ok) {
         const errorText = await response.text();
@@ -102,7 +102,7 @@ async function agregarLubricantesAlArray(){
     const lubricantes = await cargarLubricantes()
     
     for(const lubricante of lubricantes){
-        const lub = new Lubricante(lubricante.marca,lubricante.producto,lubricante.formato,lubricante.densidad,lubricante.tipo,lubricante.precio_bruto,lubricante.url)
+        const lub = new Lubricante(lubricante.id,lubricante.marca,lubricante.producto,lubricante.formato,lubricante.densidad,lubricante.tipo,lubricante.precio_bruto,lubricante.url)
         arrayLubricantes.push(lub)
         //grillaProductos.appendChild(lub.createHtmlElement());
         
@@ -111,7 +111,7 @@ async function agregarLubricantesAlArray(){
 }
 
 async function cargarEsteticaVehicular(){
-    const response = await fetch("https://grupo1-tpi-2026.onrender.com/api/productos/estetica");
+    const response = await fetch("http://localhost:3000/api/estetica");
 
     if (!response.ok) {
         const errorText = await response.text();
@@ -128,7 +128,7 @@ async function agregarEsteticaAlArray(){
     const esteticaVehicular = await cargarEsteticaVehicular()
     
     for(const estetica of esteticaVehicular){
-        const est = new EsteticaVehicular(estetica.marca,estetica.producto,estetica.categoria,estetica.formato,estetica.precio_bruto,estetica.url)
+        const est = new EsteticaVehicular(estetica.id,estetica.marca,estetica.producto,estetica.categoria,estetica.formato,estetica.precio_bruto,estetica.url)
         arrayEstetica.push(est)
         //grillaProductos.appendChild(est.createHtmlElement());
         

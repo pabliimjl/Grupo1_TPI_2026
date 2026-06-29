@@ -5,10 +5,9 @@ export class Producto{
     formato;
     precio;
     url_imagen;
-    static #IDContador = 0;
 
-    constructor(marca, nombre_producto,formato,precio,url_imagen){
-        this.id = ++Producto.#IDContador;
+    constructor(id, marca, nombre_producto,formato,precio,url_imagen){
+        this.id = id;
         this.marca = marca;
         this.nombre_producto = nombre_producto;
         this.formato = formato;
@@ -24,8 +23,8 @@ export class Producto{
 export class Lubricante extends Producto{
         densidad;
         tipo;
-        constructor(marca,nombre_producto,formato,densidad,tipo,precio,url_imagen){
-            super(marca,nombre_producto,formato,precio
+        constructor(id,marca,nombre_producto,formato,densidad,tipo,precio,url_imagen){
+            super(id,marca,nombre_producto,formato,precio
                 ,url_imagen)
             this.densidad = densidad;
             this.tipo = tipo;
@@ -157,8 +156,8 @@ export class Lubricante extends Producto{
 
 export class EsteticaVehicular extends Producto{
     categoria;
-    constructor(marca, nombre_producto, categoria, formato, precio, url_imagen){
-        super(marca,nombre_producto,formato,precio
+    constructor(id,marca, nombre_producto, categoria, formato, precio, url_imagen){
+        super(id,marca,nombre_producto,formato,precio
                 ,url_imagen)
         this.categoria = categoria;
                 }

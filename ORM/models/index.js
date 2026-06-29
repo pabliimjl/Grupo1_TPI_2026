@@ -3,6 +3,7 @@ const crearLubricante = require("./Lubricante");
 const crearEsteticaVehicular = require("./EsteticaVehicular");
 const crearVenta = require("./Venta");
 const crearDetalleVenta = require("./DetalleVenta");
+const crearUsuario = require("./Usuario")
 
 module.exports = (sequelize) => {
 
@@ -11,6 +12,7 @@ module.exports = (sequelize) => {
     const EsteticaVehicular = crearEsteticaVehicular(sequelize);
     const Venta = crearVenta(sequelize);
     const DetalleVenta = crearDetalleVenta(sequelize);
+    const Usuario = crearUsuario(sequelize);
 
     // Producto -> Lubricante
 
@@ -83,6 +85,7 @@ module.exports = (sequelize) => {
         Lubricante,
         EsteticaVehicular,
         Venta,
-        DetalleVenta
+        DetalleVenta,
+        Usuario
     };
 };

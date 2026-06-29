@@ -89,7 +89,7 @@ function agregarProductosALaGrilla(){
     pTotal.innerHTML = `Total: $${total.toFixed(2)}`
     
 }
-
+/* funcion anterior que creaba ticket
 function crearTicket(){
     const items = obtenerProductosEnLocal()
     console.log(items);
@@ -120,4 +120,37 @@ function crearTicket(){
     window.location.href = "./ticket.html"
 
     }else{alert("No hay productos en el carrito!")}
+}
+    */
+
+async function crearTicket(){
+    
+    const items = obtenerProductosEnLocal()
+    const nombre_comprador = localStorage.getItem("nombre")
+
+    const response = await fetch("http://localhost:3000/api/venta", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nombre_comprador,
+            items
+        })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        alert(data.mensaje);
+        return;
+    }else{
+        console.log('venta exitosa');
+        
+        localStorage.removeItem("productosEnCarrito")
+        const ventaId = data.venta_id;
+        window.open(`http://localhost:3000/api/ticket/${ventaId}`, "_blank");
+        window.location.href = '../index.html';
+    }
+
 }

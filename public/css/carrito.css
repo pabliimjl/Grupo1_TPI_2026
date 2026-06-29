@@ -272,6 +272,28 @@ a{
     background-color: var(--background-color-botones-hover);
 }
 
+
+#descargar-ticket{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background-color:var(--background-color-botones);
+    padding:12px;
+    border-radius:6px;
+    color:var(--color-texto-botones);
+    margin:5px;
+    font-weight:bold;
+    border:none;
+    cursor:pointer;
+}
+
+#descargar-ticket:hover{
+
+    background-color: var(--background-color-botones-hover);
+}
+
+
 #cerrar-modal{
     display:flex;
     flex-direction:column;
