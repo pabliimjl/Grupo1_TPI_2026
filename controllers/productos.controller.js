@@ -1,6 +1,5 @@
 const puppeteer = require("puppeteer");
-const bcrypt = require("bcrypt");
-const { Producto, Lubricante, EsteticaVehicular, Venta, DetalleVenta, Usuario} = require("../ORM/models")(require("../ORM/database/connection"));
+const { Producto, Lubricante, EsteticaVehicular, Venta, DetalleVenta} = require("../ORM/models")(require("../ORM/database/connection"));
 
 function mapearLubricante(p) {
 
@@ -278,96 +277,205 @@ async function obtenerTicket(req, res) {
         });
     }
 }
+async function crearLubricante(req, res) {
+    try {
+        const {
+            nombre_producto,
+            marca,
+            formato,
+            precio,
+            url_imagen,
+            densidad,
+            tipo
+        } = req.body;
 
+        if (!nombre_producto || !precio) {
+            return res.status(400).json({
+                mensaje: "Faltan datos obligatorios"
+            });
+        }
 
-async function registrarUsuario(req, res) {
-    
-  const saltRounds = Number(process.env.SALTOS_BCRYPT);
+        const producto = await Producto.create({
+            nombre_producto,
+            marca,
+            formato,
+            precio,
+            url_imagen,
+            tipo_producto: "lubricante"
+        });
 
-  try {
-    const { email, password } = req.body;
+        await Lubricante.create({
+            producto_id: producto.id,
+            densidad,
+            tipo
+        });
 
-    if (!email || !password) {
-      return res.status(400).json({
-        mensaje: "Email y contraseña son obligatorios"
-      });
+        res.status(201).json({
+            mensaje: "Lubricante creado correctamente",
+            id: producto.id
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            mensaje: "Error al crear lubricante"
+        });
     }
-
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    await Usuario.create({
-      email,
-      password: hashedPassword
-    });
-
-    return res.status(201).json({
-      mensaje: "Usuario creado"
-    });
-
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      mensaje: "Error al registrar"
-    });
-  }
 }
 
-async function login(req, res) {
-  try {
-    const { email, password } = req.body;
+async function crearEstetica(req, res) {
+    try {
+        const {
+            nombre_producto,
+            marca,
+            formato,
+            precio,
+            url_imagen,
+            categoria
+        } = req.body;
 
-    // Validar datos
-    if (!email || !password) {
-      return res.status(400).json({
-        mensaje: "Email y contraseña son obligatorios"
-      });
+        if (!nombre_producto || !precio) {
+            return res.status(400).json({
+                mensaje: "Faltan datos obligatorios"
+            });
+        }
+
+        const producto = await Producto.create({
+            nombre_producto,
+            marca,
+            formato,
+            precio,
+            url_imagen,
+            tipo_producto: "estetica_vehicular"
+        });
+
+        await EsteticaVehicular.create({
+            producto_id: producto.id,
+            categoria
+        });
+
+        res.status(201).json({
+            mensaje: "Producto de estética creado correctamente",
+            id: producto.id
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            mensaje: "Error al crear producto de estética"
+        });
     }
+}
+async function actualizarLubricante(req, res) {
+    try {
+        const { id } = req.params;
 
-    // Buscar usuario
-    const usuario = await Usuario.findOne({
-      where: { email }
-    });
+        const {
+            nombre_producto,
+            marca,
+            formato,
+            precio,
+            url_imagen,
+            densidad,
+            tipo
+        } = req.body;
 
-    if (!usuario) {
-      return res.status(401).json({
-        mensaje: "Email o contraseña incorrectos"
-      });
+        const producto = await Producto.findByPk(id);
+
+        if (!producto) {
+            return res.status(404).json({
+                mensaje: "Producto no encontrado"
+            });
+        }
+
+        await producto.update({
+            nombre_producto,
+            marca,
+            formato,
+            precio,
+            url_imagen
+        });
+
+        const lubricante = await Lubricante.findOne({
+            where: { producto_id: id }
+        });
+
+        if (lubricante) {
+            await lubricante.update({
+                densidad,
+                tipo
+            });
+        }
+
+        res.json({
+            mensaje: "Lubricante actualizado correctamente"
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            mensaje: "Error al actualizar lubricante"
+        });
     }
-
-    // Comparar contraseña
-    const passwordCorrecta = await bcrypt.compare(
-      password,
-      usuario.password
-    );
-
-    if (!passwordCorrecta) {
-      return res.status(401).json({
-        mensaje: "Email o contraseña incorrectos"
-      });
-    }
-
-    // Login exitoso
-    return res.status(200).json({
-      mensaje: "Login exitoso",
-      usuario: {
-        id: usuario.id,
-        email: usuario.email
-      }
-    });
-
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      mensaje: "Error al iniciar sesión"
-    });
-  }
 }
 
+async function actualizarEstetica(req, res) {
+    try {
+        const { id } = req.params;
+
+        const {
+            nombre_producto,
+            marca,
+            formato,
+            precio,
+            url_imagen,
+            categoria
+        } = req.body;
+
+        const producto = await Producto.findByPk(id);
+
+        if (!producto) {
+            return res.status(404).json({
+                mensaje: "Producto no encontrado"
+            });
+        }
+
+        await producto.update({
+            nombre_producto,
+            marca,
+            formato,
+            precio,
+            url_imagen
+        });
+
+        const estetica = await EsteticaVehicular.findOne({
+            where: { producto_id: id }
+        });
+
+        if (estetica) {
+            await estetica.update({
+                categoria
+            });
+        }
+
+        res.json({
+            mensaje: "Producto de estética actualizado correctamente"
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            mensaje: "Error al actualizar producto"
+        });
+    }
+}
 module.exports = {
     obtenerLubricantes,
     obtenerEstetica,
     registrarVenta,
     obtenerTicket,
-    registrarUsuario,
-    login
+    crearLubricante,
+    crearEstetica,
+    actualizarLubricante,
+    actualizarEstetica
 };
