@@ -112,6 +112,7 @@ async function listarLubricantes() {
     return lubricantes.map(mapearLubricante);
 
 }
+
 async function listarLubricantesActivos() {
 
     const lubricantes = await Producto.findAll({
@@ -130,7 +131,6 @@ async function listarLubricantesActivos() {
     return lubricantes.map(mapearLubricante);
 
 }
-
 
 async function listarEstetica() {
     
@@ -199,7 +199,8 @@ async function obtenerLubricantesPaginado(req, res) {
 
         const lubricantes = await Producto.findAndCountAll({
             where: {
-                tipo_producto: "lubricante"
+                tipo_producto: "lubricante",
+                activo:true
             },
             include: [
                 {
@@ -260,7 +261,8 @@ async function obtenerEsteticaPaginado(req, res) {
 
         const estetica = await Producto.findAndCountAll({
             where: {
-                tipo_producto: "estetica_vehicular"
+                tipo_producto: "estetica_vehicular",
+                activo:true
             },
             include: [
                 {
