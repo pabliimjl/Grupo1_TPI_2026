@@ -21,7 +21,7 @@ router.get("/logout",logout)
 router.patch("/cambiarPassword", cambiarPassword);
 router.delete("/eliminarUsuario", eliminarUsuario);
 router.get("/login",guestMiddleware, (req, res) => {res.render("login");});
-router.get("/admin/productos", mostrarAdmin);
+router.get("/admin/productos",authMiddleware, mostrarAdmin);
 router.get("/admin/productos/:id/editar", mostrarEditarProducto);
 router.get("/admin/productos/nuevo",mostrarFormularioNuevoProducto)
 

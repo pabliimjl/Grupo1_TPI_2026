@@ -20,9 +20,11 @@ app.set("views", "./views");
 
 const productosRoutes = require("./routes/productos.routes");
 const adminRoutes = require("./routes/admin.routes")
+const ventasRoutes = require("./routes/ventas.routes")
 
 app.use("/", productosRoutes);
 app.use("/",adminRoutes);
+app.use("/",ventasRoutes)
 
 const PORT = process.env.PORT || 3000;
 

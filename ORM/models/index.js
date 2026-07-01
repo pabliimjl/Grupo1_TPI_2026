@@ -14,7 +14,6 @@ module.exports = (sequelize) => {
     const DetalleVenta = crearDetalleVenta(sequelize);
     const Usuario = crearUsuario(sequelize);
 
-    // Producto -> Lubricante
 
     Producto.hasOne(Lubricante, {
         foreignKey: "producto_id",
@@ -27,7 +26,6 @@ module.exports = (sequelize) => {
         as: "producto"
     });
 
-    // Producto -> Estética Vehicular
 
     Producto.hasOne(EsteticaVehicular, {
         foreignKey: "producto_id",
@@ -40,7 +38,6 @@ module.exports = (sequelize) => {
         as: "producto"
     });
 
-    // Venta -> DetalleVenta
 
     Venta.hasMany(DetalleVenta, {
         foreignKey: "venta_id",
@@ -53,7 +50,6 @@ module.exports = (sequelize) => {
         as: "venta"
     });
 
-    // Producto -> DetalleVenta
 
     Producto.hasMany(DetalleVenta, {
         foreignKey: "producto_id",
@@ -65,8 +61,6 @@ module.exports = (sequelize) => {
         foreignKey: "producto_id",
         as: "producto"
     });
-
-    // Muchos a muchos
 
     Producto.belongsToMany(Venta, {
         through: DetalleVenta,

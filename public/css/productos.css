@@ -148,6 +148,7 @@ body{
 }
 
 #producto > img{
+    background-color: white;
     width:auto;
     max-height:120px;
     object-fit:contain;

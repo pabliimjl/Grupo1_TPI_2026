@@ -18,7 +18,7 @@
 <header>
 
     <h1>Panel de Administración</h1>
-
+    <button id="btnVentas">Ver ventas</button>
     <button id="btnLogout">
         Cerrar sesión
     </button>
@@ -97,19 +97,24 @@
                         </td>
 
                         <td>
-                        <a href="/admin/productos/<%= producto.id %>/editar">
+                            <a class="btn-editar" href="/admin/productos/<%= producto.id %>/editar">
                             Editar
-                        </a>
+                                </a>
                         |
-
                         <% if (producto.activo) { %>
-                            <a href="/admin/productos/<%= producto.id %>/desactivar">
-                            Desactivar
+
+                            <a class="btn-desactivar"
+                            href="/admin/productos/<%= producto.id %>/desactivar">
+                                Desactivar
                             </a>
+
                         <% } else { %>
-                            <a href="/admin/productos/<%= producto.id %>/activar">
-                            Activar
+
+                            <a class="btn-activar"
+                            href="/admin/productos/<%= producto.id %>/activar">
+                                Activar
                             </a>
+
                         <% } %>
                         </td>
 
@@ -182,20 +187,24 @@
                         <% } %>
                         </td>
 
-                        <td>
-                        <a href="/admin/productos/<%= producto.id %>/editar">
+                        <td><a class="btn-editar" href="/admin/productos/<%= producto.id %>/editar">
                             Editar
                         </a>
                         |
-
                         <% if (producto.activo) { %>
-                            <a href="/admin/productos/<%= producto.id %>/desactivar">
-                            Desactivar
+
+                            <a class="btn-desactivar"
+                            href="/admin/productos/<%= producto.id %>/desactivar">
+                                Desactivar
                             </a>
+
                         <% } else { %>
-                            <a href="/admin/productos/<%= producto.id %>/activar">
-                            Activar
+
+                            <a class="btn-activar"
+                            href="/admin/productos/<%= producto.id %>/activar">
+                                Activar
                             </a>
+
                         <% } %>
                         </td>
 
@@ -214,6 +223,16 @@
 
 <script src="/js/admin.js"></script>
 
+<div id="modalConfirm" class="modal hidden">
+    <div class="modal-content">
+        <h3 id="modalText">¿Estás seguro?</h3>
+
+        <div class="modal-actions">
+            <button id="btnCancelar">Cancelar</button>
+            <a id="btnConfirmar" href="#">Confirmar</a>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>

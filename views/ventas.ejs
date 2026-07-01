@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas</title>
+
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Ventas</h1>
+    <a href="/admin/productos">← Volver</a>
+</header>
+
+<main>
+
+    <section class="categoria">
+
+        <h2>Listado de ventas</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Comprador</th>
+                    <th>Fecha</th>
+                    <th>Productos</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <% ventas.forEach(venta => { %>
+
+                    <tr>
+
+                        <td><%= venta.id %></td>
+
+                        <td><%= venta.nombre_comprador %></td>
+
+                        <td>
+                            <%= new Date(venta.fecha).toLocaleString("es-AR") %>
+                        </td>
+
+                        <td style="text-align:left;">
+
+                            <% venta.detalles.forEach(detalle => { %>
+
+                                <div style="margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid #eee;">
+
+                                    <strong>
+                                        <%= detalle.producto.nombre_producto %>
+                                    </strong>
+
+                                    <br>
+
+                                    Cant: <%= detalle.cantidad %> |
+                                    Unit: $<%= detalle.precio_unitario %> |
+                                    Sub: $<%= detalle.subtotal %>
+
+                                </div>
+
+                            <% }) %>
+
+                        </td>
+
+                        <td>
+                            $ <%= venta.total %>
+                        </td>
+
+                    </tr>
+
+                <% }) %>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

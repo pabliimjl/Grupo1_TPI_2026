@@ -1,91 +1,51 @@
-import { EsteticaVehicular, Lubricante, Producto } from "./Producto.js";
+import { EsteticaVehicular, Lubricante } from "./Producto.js";
+const API_URL = "http://localhost:3000";
+const botonLubricantes = document.getElementById("lubricantes");
+const botonEsteticaVehicular = document.getElementById("esteticaVehicular");
 
-const botonLubricantes = document.getElementById("lubricantes")
-botonLubricantes.addEventListener("click",mostrarLubricantes);
+const paginaAnterior = document.getElementById("paginaAnterior");
+const paginaSiguiente = document.getElementById("paginaSiguiente");
+const numeroPagina = document.getElementById("numeroPagina");
 
-const botonEsteticaVehicular = document.getElementById("esteticaVehicular")
-botonEsteticaVehicular.addEventListener("click",mostrarEstetica)
+const grillaProductos = document.getElementById("productos");
 
-const paginaAnterior = document.getElementById('paginaAnterior')
-paginaAnterior.addEventListener('click', bajarPagina)
+botonLubricantes.addEventListener("click", mostrarLubricantes);
+botonEsteticaVehicular.addEventListener("click", mostrarEstetica);
 
-const paginaSiguiente = document.getElementById('paginaSiguiente')
-paginaSiguiente.addEventListener('click',subirPagina)
-
-const numeroPagina = document.getElementById('numeroPagina')
-
-const grillaProductos = document.getElementById("productos")
+paginaAnterior.addEventListener("click", bajarPagina);
+paginaSiguiente.addEventListener("click", subirPagina);
 
 let estoyLubricantes = true;
-let arrayLubricantes = []
-let arrayEstetica = []
+
 let paginaLubricantes = 1;
 let paginaEstetica = 1;
 
+let totalPaginasLubricantes = 1;
+let totalPaginasEstetica = 1;
 
+document.addEventListener("DOMContentLoaded", async () => {
 
-document.addEventListener("DOMContentLoaded", async ()=>{
-    const saludo = document.getElementById("saludo")
-    const nombre = localStorage.getItem('nombre')
-    saludo.innerHTML = `Hola ${nombre}!`
-    await agregarLubricantesAlArray()
-    await agregarEsteticaAlArray()
-    mostrarLubricantes()
-})
+    const saludo = document.getElementById("saludo");
+    const nombre = localStorage.getItem("nombre");
+    saludo.innerHTML = `Hola ${nombre}!`;
 
-function mostrarLubricantes(){
-    limpiarProductos()
-    botonEsteticaVehicular.style.backgroundColor="#2563EB"
-    botonLubricantes.style.backgroundColor="#0d1a80"
-    mostrarPaginaLubricantes(paginaLubricantes);
-    estoyLubricantes = true;
-    numeroPagina.innerHTML = paginaLubricantes;
-}
+    await mostrarLubricantes();
+});
 
-function mostrarEstetica(){
-    limpiarProductos()
-    botonLubricantes.style.backgroundColor="#2563EB"
-    botonEsteticaVehicular.style.backgroundColor="#0d1a80"
-    mostrarPaginaEstetica(paginaEstetica)
-    estoyLubricantes = false;
-    numeroPagina.innerHTML = paginaEstetica;
-}
-
-function limpiarProductos(){
+function limpiarProductos() {
     grillaProductos.innerHTML = "";
 }
 
-function subirPagina(){
-    if(estoyLubricantes){
-        paginaLubricantes++;
-        mostrarLubricantes()
-    }else{
-        paginaEstetica++;
-        mostrarEstetica()
-    }
+function actualizarPaginaUI() {
+    numeroPagina.innerHTML = estoyLubricantes
+        ? paginaLubricantes
+        : paginaEstetica;
 }
 
-function bajarPagina(){
-    if(estoyLubricantes){
-        if(paginaLubricantes>1){
-            paginaLubricantes--;
-        mostrarLubricantes()
-        }else{
-            alert('Estas en la primer pagina')
-        }
-    }else{
-        if(paginaEstetica>1){
-        paginaEstetica--;
-        mostrarEstetica()}
-        else{
-            alert('Estas en la primer pagina')
-        }
-    }
-}
 
-async function cargarLubricantes() {
+async function cargarLubricantes(page = 1) {
 
-    const response = await fetch("http://localhost:3000/api/lubricantes");
+    const response = await fetch(`http://localhost:3000/api/lubricantesPaginado?page=${page}`);
 
     if (!response.ok) {
         const errorText = await response.text();
@@ -93,66 +53,121 @@ async function cargarLubricantes() {
         throw new Error("Error al cargar lubricantes");
     }
 
-    const lubricantes = await response.json();
-
-    return lubricantes;
+    return await response.json();
 }
 
-async function agregarLubricantesAlArray(){
-    const lubricantes = await cargarLubricantes()
+async function mostrarLubricantes() {
     
-    for(const lubricante of lubricantes){
-        const lub = new Lubricante(lubricante.id,lubricante.marca,lubricante.producto,lubricante.formato,lubricante.densidad,lubricante.tipo,lubricante.precio_bruto,lubricante.url)
-        arrayLubricantes.push(lub)
-        //grillaProductos.appendChild(lub.createHtmlElement());
-        
+    botonLubricantes.style.backgroundColor="#2563EB"
+    botonEsteticaVehicular.style.backgroundColor="#232d3e"
+    limpiarProductos();
+
+    const data = await cargarLubricantes(paginaLubricantes);
+
+    totalPaginasLubricantes = data.totalPaginas;
+
+    estoyLubricantes = true;
+    actualizarPaginaUI();
+
+    for (const item of data.productos) {
+
+        const lub = new Lubricante(
+            item.id,
+            item.marca,
+            item.nombre_producto,
+            item.formato,
+            item.lubricante?.densidad,
+            item.lubricante?.tipo,
+            item.precio,
+            API_URL+item.url_imagen
+        );
+
+        grillaProductos.appendChild(lub.createHtmlElement());
     }
-    
 }
 
-async function cargarEsteticaVehicular(){
-    const response = await fetch("http://localhost:3000/api/estetica");
+/* =========================
+   ESTÉTICA API
+========================= */
+
+async function cargarEstetica(page = 1) {
+
+    const response = await fetch(`http://localhost:3000/api/esteticaPaginado?page=${page}`);
 
     if (!response.ok) {
         const errorText = await response.text();
         console.error("Error API:", errorText);
-        throw new Error("Error al cargar estetica");
+        throw new Error("Error al cargar estética");
     }
-    const esteticaVehicular = await response.json()
-    
-    
-    return esteticaVehicular
+
+    return await response.json();
 }
 
-async function agregarEsteticaAlArray(){
-    const esteticaVehicular = await cargarEsteticaVehicular()
-    
-    for(const estetica of esteticaVehicular){
-        const est = new EsteticaVehicular(estetica.id,estetica.marca,estetica.producto,estetica.categoria,estetica.formato,estetica.precio_bruto,estetica.url)
-        arrayEstetica.push(est)
-        //grillaProductos.appendChild(est.createHtmlElement());
-        
+async function mostrarEstetica() {
+
+    botonEsteticaVehicular.style.backgroundColor="#2563EB"
+    botonLubricantes.style.backgroundColor="#232d3e"
+    limpiarProductos();
+
+    const data = await cargarEstetica(paginaEstetica);
+
+    totalPaginasEstetica = data.totalPaginas;
+
+    estoyLubricantes = false;
+    actualizarPaginaUI();
+
+    for (const item of data.productos) {
+
+        const est = new EsteticaVehicular(
+            item.id,
+            item.marca,
+            item.nombre_producto,
+            item.esteticaVehicular?.categoria,
+            item.formato,
+            item.precio,
+            API_URL+item.url_imagen
+        );
+
+        grillaProductos.appendChild(est.createHtmlElement());
     }
 }
 
-async function mostrarPaginaLubricantes(pagina){
-  const inicio = 12*(pagina-1)
-    const fin = inicio + 12
+/* =========================
+   PAGINACIÓN
+========================= */
 
-    const paginaActual = arrayLubricantes.slice(inicio,fin)
-    
-    for(const est of paginaActual){        
-        grillaProductos.appendChild(est.createHtmlElement())
+function subirPagina() {
+
+    if (estoyLubricantes) {
+
+        if (paginaLubricantes < totalPaginasLubricantes) {
+            paginaLubricantes++;
+            mostrarLubricantes();
+        }
+
+    } else {
+
+        if (paginaEstetica < totalPaginasEstetica) {
+            paginaEstetica++;
+            mostrarEstetica();
+        }
     }
 }
 
-async function mostrarPaginaEstetica(pagina){
-    const inicio = 12*(pagina-1)
-    const fin = inicio + 12
+function bajarPagina() {
 
-    const paginaActual = arrayEstetica.slice(inicio,fin)
-    
-    for(const est of paginaActual){
-        grillaProductos.appendChild(est.createHtmlElement())
+    if (estoyLubricantes) {
+
+        if (paginaLubricantes > 1) {
+            paginaLubricantes--;
+            mostrarLubricantes();
+        }
+
+    } else {
+
+        if (paginaEstetica > 1) {
+            paginaEstetica--;
+            mostrarEstetica();
+        }
     }
 }

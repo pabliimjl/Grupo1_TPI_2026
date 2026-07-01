@@ -131,6 +131,44 @@ async function listarLubricantesActivos() {
 
 }
 
+
+async function listarEstetica() {
+    
+    const estetica = await Producto.findAll({
+        where: {
+            tipo_producto: "estetica_vehicular"
+        },
+        include: [
+            {
+                model: EsteticaVehicular,
+                as: "esteticaVehicular"
+            }
+        ]
+    });
+
+    return estetica.map(mapearEstetica);
+
+}
+
+async function listarEsteticaActivos() {
+    
+    const estetica = await Producto.findAll({
+        where: {
+            tipo_producto: "estetica_vehicular",
+            activo:true
+        },
+        include: [
+            {
+                model: EsteticaVehicular,
+                as: "esteticaVehicular"
+            }
+        ]
+    });
+    
+    return estetica.map(mapearEstetica);
+    
+}
+
 async function obtenerLubricantes(req, res) {
 
     try {
@@ -151,41 +189,45 @@ async function obtenerLubricantes(req, res) {
 
 }
 
-async function listarEstetica() {
+async function obtenerLubricantesPaginado(req, res) {
 
-    const estetica = await Producto.findAll({
-        where: {
-            tipo_producto: "estetica_vehicular"
-        },
-        include: [
-            {
-                model: EsteticaVehicular,
-                as: "esteticaVehicular"
-            }
-        ]
-    });
+    try {
 
-    return estetica.map(mapearEstetica);
+        const page = parseInt(req.query.page) || 1;
+        const limit = 12;
+        const offset = (page - 1) * limit;
 
-}
+        const lubricantes = await Producto.findAndCountAll({
+            where: {
+                tipo_producto: "lubricante"
+            },
+            include: [
+                {
+                    model: Lubricante,
+                    as: "lubricante"
+                }
+            ],
+            limit,
+            offset,
+            order: [["id", "ASC"]]
+        });
 
-async function listarEsteticaActivos() {
+        res.json({
+            productos: lubricantes.rows,
+            total: lubricantes.count,
+            paginaActual: page,
+            totalPaginas: Math.ceil(lubricantes.count / limit)
+        });
 
-    const estetica = await Producto.findAll({
-        where: {
-            tipo_producto: "estetica_vehicular",
-            activo:true
-        },
-        include: [
-            {
-                model: EsteticaVehicular,
-                as: "esteticaVehicular"
-            }
-        ]
-    });
+    } catch (error) {
 
-    return estetica.map(mapearEstetica);
+        console.error(error);
 
+        res.status(500).json({
+            mensaje: "Error al obtener lubricantes"
+        });
+
+    }
 }
 
 async function obtenerEstetica(req, res) {
@@ -206,6 +248,47 @@ async function obtenerEstetica(req, res) {
 
     }
 
+}
+
+async function obtenerEsteticaPaginado(req, res) {
+
+    try {
+
+        const page = parseInt(req.query.page) || 1;
+        const limit = 12;
+        const offset = (page - 1) * limit;
+
+        const estetica = await Producto.findAndCountAll({
+            where: {
+                tipo_producto: "estetica_vehicular"
+            },
+            include: [
+                {
+                    model: EsteticaVehicular,
+                    as: "esteticaVehicular"
+                }
+            ],
+            limit,
+            offset,
+            order: [["id", "ASC"]]
+        });
+
+        res.json({
+            productos: estetica.rows,
+            total: estetica.count,
+            paginaActual: page,
+            totalPaginas: Math.ceil(estetica.count / limit)
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            mensaje: "Error al obtener estética vehicular"
+        });
+
+    }
 }
 
 async function registrarVenta(req, res) {
@@ -531,5 +614,7 @@ module.exports = {
     activarProducto,
     desactivarProducto,
     editarProducto,
-    crearProducto
+    crearProducto,
+    obtenerEsteticaPaginado,
+    obtenerLubricantesPaginado
 };

@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 form.addEventListener("submit", async (e) => {
 
-    e.preventDefault(); // Evita que cambie de página
+    e.preventDefault();
 
     mensajeError.textContent = "";
 
@@ -35,8 +35,7 @@ form.addEventListener("submit", async (e) => {
             return;
         }
 
-        // Login correcto
-        window.location.href = "/admin";
+        window.location.href = "/admin/productos";
 
     } catch (error) {
 

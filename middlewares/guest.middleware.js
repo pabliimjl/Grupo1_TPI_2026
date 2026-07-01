@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken")
+
 module.exports = (req, res, next) => {
 
     const token = req.cookies?.token;
@@ -7,10 +9,10 @@ module.exports = (req, res, next) => {
     }
 
     try {
-
+        
         jwt.verify(token, process.env.JWT_SECRET);
 
-        return res.redirect("/admin");
+        return res.redirect("/admin/productos");
 
     } catch (error) {
 
