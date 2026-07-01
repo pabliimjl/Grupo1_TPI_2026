@@ -10,7 +10,7 @@ const connection = new Sequelize(
         port: process.env.DB_PORT || 5432,
         dialect: 'postgres',
         logging: false,
-        // Si el host es localhost o 127.0.0.1, desactiva dialectOptions. De lo contrario, aplica SSL.
+        
         dialectOptions: process.env.DB_HOST === '127.0.0.1' || process.env.DB_HOST === 'localhost'
             ? {}
             : {

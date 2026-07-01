@@ -86,10 +86,6 @@ async function mostrarLubricantes() {
     }
 }
 
-/* =========================
-   ESTÉTICA API
-========================= */
-
 async function cargarEstetica(page = 1) {
 
     const response = await fetch(`http://localhost:3000/api/esteticaPaginado?page=${page}`);
@@ -131,10 +127,6 @@ async function mostrarEstetica() {
         grillaProductos.appendChild(est.createHtmlElement());
     }
 }
-
-/* =========================
-   PAGINACIÓN
-========================= */
 
 function subirPagina() {
 

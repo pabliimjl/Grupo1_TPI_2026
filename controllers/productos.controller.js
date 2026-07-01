@@ -306,7 +306,6 @@ async function registrarVenta(req, res) {
         let total = 0;
         const detalles = [];
 
-        // Busco los productos y calculo el total
         for (const item of items) {
 
             const producto = await Producto.findByPk(item.id);
@@ -331,13 +330,11 @@ async function registrarVenta(req, res) {
 
         }
 
-        // Creo la venta
         const venta = await Venta.create({
             nombre_comprador,
             total
         });
 
-        // Creo el detalle de la venta
         for (const detalle of detalles) {
 
             await DetalleVenta.create({
