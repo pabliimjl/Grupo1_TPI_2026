@@ -32,6 +32,11 @@ module.exports = (sequelize) => {
                 "estetica_vehicular"
             ),
             allowNull: false
+        },
+        activo: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true
         }
     }, {
         tableName: "productos",

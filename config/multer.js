@@ -1,4 +1,3 @@
-const { log } = require("console");
 const multer = require("multer");
 const path = require("path");
 
@@ -8,9 +7,11 @@ const storage = multer.diskStorage({
   },
 
   filename: (req, file, cb) => {
-    const unique = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, unique + path.extname(file.originalname));
+    const id = req.params.id;
+    const ext = path.extname(file.originalname);
+
+    cb(null, `producto-${id}${ext}`);
   }
-}); 
+});
 
 module.exports = multer({ storage });

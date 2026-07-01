@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Producto</title>
+
+    <link rel="stylesheet" href="/css/editar-producto.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Nuevo Producto</h1>
+    <a href="/admin/productos">← Volver</a>
+</header>
+
+<main>
+
+    <form action="/admin/productos/nuevo" method="POST" enctype="multipart/form-data">
+
+      
+
+        <label>Marca</label>
+        <input type="text" name="marca" required>
+
+        <label>Nombre producto</label>
+        <input type="text" name="nombre_producto" required>
+
+        <label>Formato</label>
+        <input type="text" name="formato" required>
+
+        <label>Precio</label>
+        <input type="number" step="0.01" name="precio" required>
+
+        <label>Tipo de producto</label>
+        <select name="tipo_producto" id="tipo_producto" required>
+            <option value="">Seleccionar...</option>
+            <option value="lubricante">Lubricante</option>
+            <option value="estetica_vehicular">Estética vehicular</option>
+        </select>
+
+    
+
+        <label>Imagen</label>
+        <input type="file" name="imagen" id="inputImagen">
+
+        <img id="previewImg" style="display:none;">
+
+
+
+        <div id="lubricanteFields" style="display:none;">
+
+            <hr>
+
+            <h3>Datos de Lubricante</h3>
+
+            <label>Densidad</label>
+            <input type="text" name="densidad">
+
+            <label>Tipo (sintético / mineral)</label>
+            <input type="text" name="tipo">
+
+        </div>
+
+        <div id="esteticaFields" style="display:none;">
+
+            <hr>
+
+            <h3>Datos de Estética Vehicular</h3>
+
+            <label>Categoría</label>
+            <input type="text" name="categoria">
+
+        </div>
+
+
+        <button type="submit">Crear producto</button>
+
+    </form>
+
+</main>
+
+<script>
+    const tipo = document.getElementById("tipo_producto");
+    const lubricanteFields = document.getElementById("lubricanteFields");
+    const esteticaFields = document.getElementById("esteticaFields");
+
+    const inputImagen = document.getElementById("inputImagen");
+    const previewImg = document.getElementById("previewImg");
+
+    tipo.addEventListener("change", () => {
+
+        lubricanteFields.style.display = "none";
+        esteticaFields.style.display = "none";
+
+        if (tipo.value === "lubricante") {
+            lubricanteFields.style.display = "block";
+        }
+
+        if (tipo.value === "estetica_vehicular") {
+            esteticaFields.style.display = "block";
+        }
+    });
+
+    inputImagen.addEventListener("change", () => {
+
+        const file = inputImagen.files[0];
+
+        if (file) {
+            previewImg.src = URL.createObjectURL(file);
+            previewImg.style.display = "block";
+            previewImg.style.width = "120px";
+            previewImg.style.marginTop = "10px";
+        }
+
+    });
+</script>
+
+</body>
+</html>

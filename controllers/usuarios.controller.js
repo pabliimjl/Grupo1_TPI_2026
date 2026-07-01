@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
-const {Usuario} = require("../ORM/models")(require("../ORM/database/connection"));
+const jwt = require("jsonwebtoken");
+const { listarLubricantes, listarEstetica } = require("./productos.controller");
+const {Usuario,Producto,EsteticaVehicular, Lubricante} = require("../ORM/models")(require("../ORM/database/connection"));
 
 async function registrarUsuario(req, res) {
     
@@ -37,14 +39,12 @@ async function login(req, res) {
   try {
     const { email, password } = req.body;
 
-    // Validar datos
     if (!email || !password) {
       return res.status(400).json({
         mensaje: "Email y contraseña son obligatorios"
       });
     }
 
-    // Buscar usuario
     const usuario = await Usuario.findOne({
       where: { email }
     });
@@ -55,7 +55,6 @@ async function login(req, res) {
       });
     }
 
-    // Comparar contraseña
     const passwordCorrecta = await bcrypt.compare(
       password,
       usuario.password
@@ -67,13 +66,21 @@ async function login(req, res) {
       });
     }
 
-    // Login exitoso
-    return res.status(200).json({
-      mensaje: "Login exitoso",
-      usuario: {
-        id: usuario.id,
+    const token = jwt.sign(
+      {
         email: usuario.email
-      }
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60
+    });
+
+    return res.status(200).json({
+      mensaje: "Login exitoso"
     });
 
   } catch (error) {
@@ -94,7 +101,6 @@ async function cambiarPassword(req, res) {
       });
     }
 
-    // buscar usuario
     const usuario = await Usuario.findOne({
       where: { email }
     });
@@ -105,7 +111,6 @@ async function cambiarPassword(req, res) {
       });
     }
 
-    // verificar contraseña actual
     const passwordCorrecta = await bcrypt.compare(
       passwordActual,
       usuario.password
@@ -117,11 +122,9 @@ async function cambiarPassword(req, res) {
       });
     }
 
-    // hash nueva contraseña
     const saltRounds = Number(process.env.SALTOS_BCRYPT);
     const hashedPassword = await bcrypt.hash(passwordNueva, saltRounds);
 
-    // actualizar
     await usuario.update({
       password: hashedPassword
     });
@@ -148,7 +151,6 @@ async function eliminarUsuario(req, res) {
       });
     }
 
-    // buscar usuario
     const usuario = await Usuario.findOne({
       where: { email }
     });
@@ -159,7 +161,6 @@ async function eliminarUsuario(req, res) {
       });
     }
 
-    // eliminar
     await usuario.destroy();
 
     return res.status(200).json({
@@ -174,9 +175,93 @@ async function eliminarUsuario(req, res) {
   }
 }
 
+async function logout(req, res) {
+
+    res.clearCookie("token");
+
+    return res.redirect("/login");
+
+}
+
+async function mostrarAdmin(req, res) {
+
+    try {
+
+        const lubricantes = await Producto.findAll({
+            where: {
+                tipo_producto: "lubricante"
+            },
+            include: [{
+                model: Lubricante,
+                as: "lubricante"
+            }],
+            order: [['id', 'ASC']]
+        });
+
+        const esteticas = await Producto.findAll({
+            where: {
+                tipo_producto: "estetica_vehicular"
+            },
+            include: [{
+                model: EsteticaVehicular,
+                as: "esteticaVehicular"
+            }],
+            order: [['id', 'ASC']]
+        });
+        
+        
+
+        res.render("admin", {
+            lubricantes,
+            esteticas
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).send("Error al cargar el panel.");
+
+    }
+
+}
+
+async function mostrarEditarProducto(req, res) {
+    const { id } = req.params;
+
+    const producto = await Producto.findOne({
+        where: { id },
+        include: [
+            {
+                model: Lubricante,
+                as: "lubricante"
+            },
+            {
+                model: EsteticaVehicular,
+                as: "esteticaVehicular"
+            }
+        ]
+    });
+
+    return res.render("editar-producto", { producto });
+}
+
+async function mostrarFormularioNuevoProducto(req, res) {
+    try {
+        return res.render("nuevo-producto");
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Error al cargar formulario");
+    }
+}
+
 module.exports = {
   registrarUsuario,
   login,
   cambiarPassword,
-  eliminarUsuario
+  eliminarUsuario,
+  logout,
+  mostrarAdmin,
+  mostrarEditarProducto,
+  mostrarFormularioNuevoProducto
 };

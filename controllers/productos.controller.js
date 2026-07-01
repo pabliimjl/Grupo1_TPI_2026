@@ -1,4 +1,6 @@
 const puppeteer = require("puppeteer");
+const fs = require("fs");
+const path = require("path");
 const { Producto, Lubricante, EsteticaVehicular, Venta, DetalleVenta} = require("../ORM/models")(require("../ORM/database/connection"));
 
 function mapearLubricante(p) {
@@ -93,50 +95,117 @@ function generarHtmlTicket(venta) {
     `;
 }
 
+async function listarLubricantes() {
+
+    const lubricantes = await Producto.findAll({
+        where: {
+            tipo_producto: "lubricante"
+        },
+        include: [
+            {
+                model: Lubricante,
+                as: "lubricante"
+            }
+        ]
+    });
+
+    return lubricantes.map(mapearLubricante);
+
+}
+async function listarLubricantesActivos() {
+
+    const lubricantes = await Producto.findAll({
+        where: {
+            tipo_producto: "lubricante",
+            activo:true
+        },
+        include: [
+            {
+                model: Lubricante,
+                as: "lubricante"
+            }
+        ]
+    });
+
+    return lubricantes.map(mapearLubricante);
+
+}
+
 async function obtenerLubricantes(req, res) {
+
     try {
 
-        const lubricantes = await Producto.findAll({
-            where: {
-                tipo_producto: "lubricante"
-            },
-            include: [
-                {
-                    model: Lubricante,
-                    as: "lubricante"
-                }
-            ]
-        });
+        const lubricantes = await listarLubricantesActivos();
 
-        res.json(lubricantes.map(mapearLubricante));
+        res.json(lubricantes);
 
     } catch (error) {
+
         console.error(error);
-        res.status(500).json({ mensaje: "Error al obtener lubricantes" });
+
+        res.status(500).json({
+            mensaje: "Error al obtener lubricantes"
+        });
+
     }
+
+}
+
+async function listarEstetica() {
+
+    const estetica = await Producto.findAll({
+        where: {
+            tipo_producto: "estetica_vehicular"
+        },
+        include: [
+            {
+                model: EsteticaVehicular,
+                as: "esteticaVehicular"
+            }
+        ]
+    });
+
+    return estetica.map(mapearEstetica);
+
+}
+
+async function listarEsteticaActivos() {
+
+    const estetica = await Producto.findAll({
+        where: {
+            tipo_producto: "estetica_vehicular",
+            activo:true
+        },
+        include: [
+            {
+                model: EsteticaVehicular,
+                as: "esteticaVehicular"
+            }
+        ]
+    });
+
+    return estetica.map(mapearEstetica);
+
 }
 
 async function obtenerEstetica(req, res) {
+
     try {
 
-        const estetica = await Producto.findAll({
-            where: {
-                tipo_producto: "estetica_vehicular"
-            },
-            include: [
-                {
-                    model: EsteticaVehicular,
-                    as: "esteticaVehicular"
-                }
-            ]
-        });
+        const estetica = await listarEsteticaActivos();
 
-        res.json(estetica.map(mapearEstetica));
+        res.json(estetica);
 
     } catch (error) {
+
         console.error(error);
-        res.status(500).json({ mensaje: "Error al obtener estética vehicular" });
+
+        res.status(500).json({
+            mensaje: "Error al obtener estética vehicular"
+        });
+
     }
+
 }
 
 async function registrarVenta(req, res) {
@@ -277,205 +346,190 @@ async function obtenerTicket(req, res) {
         });
     }
 }
-async function crearLubricante(req, res) {
+
+async function crearProducto(req, res) {
     try {
         const {
-            nombre_producto,
             marca,
+            nombre_producto,
             formato,
             precio,
-            url_imagen,
+            tipo_producto,
             densidad,
-            tipo
-        } = req.body;
-
-        if (!nombre_producto || !precio) {
-            return res.status(400).json({
-                mensaje: "Faltan datos obligatorios"
-            });
-        }
-
-        const producto = await Producto.create({
-            nombre_producto,
-            marca,
-            formato,
-            precio,
-            url_imagen,
-            tipo_producto: "lubricante"
-        });
-
-        await Lubricante.create({
-            producto_id: producto.id,
-            densidad,
-            tipo
-        });
-
-        res.status(201).json({
-            mensaje: "Lubricante creado correctamente",
-            id: producto.id
-        });
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            mensaje: "Error al crear lubricante"
-        });
-    }
-}
-
-async function crearEstetica(req, res) {
-    try {
-        const {
-            nombre_producto,
-            marca,
-            formato,
-            precio,
-            url_imagen,
+            tipo,
             categoria
         } = req.body;
 
-        if (!nombre_producto || !precio) {
-            return res.status(400).json({
-                mensaje: "Faltan datos obligatorios"
-            });
+        if (!marca || !nombre_producto || !formato || !precio || !tipo_producto) {
+            return res.status(400).send("Faltan datos obligatorios");
         }
 
         const producto = await Producto.create({
-            nombre_producto,
             marca,
+            nombre_producto,
             formato,
             precio,
-            url_imagen,
-            tipo_producto: "estetica_vehicular"
+            tipo_producto,
+            url_imagen: null,
+            activo: true
         });
 
-        await EsteticaVehicular.create({
-            producto_id: producto.id,
-            categoria
-        });
+        if (req.file) {
 
-        res.status(201).json({
-            mensaje: "Producto de estética creado correctamente",
-            id: producto.id
-        });
+            const ext = path.extname(req.file.originalname);
 
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            mensaje: "Error al crear producto de estética"
-        });
-    }
-}
-async function actualizarLubricante(req, res) {
-    try {
-        const { id } = req.params;
+            const newFileName = `producto-${producto.id}${ext}`;
 
-        const {
-            nombre_producto,
-            marca,
-            formato,
-            precio,
-            url_imagen,
-            densidad,
-            tipo
-        } = req.body;
+            const oldPath = req.file.path;
+            const newPath = path.join(
+                "public/resources/images",
+                newFileName
+            );
 
-        const producto = await Producto.findByPk(id);
+            fs.renameSync(oldPath, newPath);
 
-        if (!producto) {
-            return res.status(404).json({
-                mensaje: "Producto no encontrado"
-            });
+            const urlImagen = "/images/" + newFileName;
+
+            await producto.update({ url_imagen: urlImagen });
         }
 
-        await producto.update({
-            nombre_producto,
-            marca,
-            formato,
-            precio,
-            url_imagen
-        });
-
-        const lubricante = await Lubricante.findOne({
-            where: { producto_id: id }
-        });
-
-        if (lubricante) {
-            await lubricante.update({
+        if (tipo_producto === "lubricante") {
+            await Lubricante.create({
+                producto_id: producto.id,
                 densidad,
                 tipo
             });
         }
 
-        res.json({
-            mensaje: "Lubricante actualizado correctamente"
-        });
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            mensaje: "Error al actualizar lubricante"
-        });
-    }
-}
-
-async function actualizarEstetica(req, res) {
-    try {
-        const { id } = req.params;
-
-        const {
-            nombre_producto,
-            marca,
-            formato,
-            precio,
-            url_imagen,
-            categoria
-        } = req.body;
-
-        const producto = await Producto.findByPk(id);
-
-        if (!producto) {
-            return res.status(404).json({
-                mensaje: "Producto no encontrado"
-            });
-        }
-
-        await producto.update({
-            nombre_producto,
-            marca,
-            formato,
-            precio,
-            url_imagen
-        });
-
-        const estetica = await EsteticaVehicular.findOne({
-            where: { producto_id: id }
-        });
-
-        if (estetica) {
-            await estetica.update({
+        if (tipo_producto === "estetica_vehicular") {
+            await EsteticaVehicular.create({
+                producto_id: producto.id,
                 categoria
             });
         }
 
-        res.json({
-            mensaje: "Producto de estética actualizado correctamente"
-        });
+        return res.redirect("/admin/productos");
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({
-            mensaje: "Error al actualizar producto"
-        });
+        return res.status(500).send("Error al crear producto");
     }
 }
+
+async function desactivarProducto(req, res) {
+    try {
+        const { id } = req.params;
+
+        await Producto.update(
+            { activo: false },
+            { where: { id } }
+        );
+
+        return res.redirect("/admin/productos");
+
+    } catch (error) {
+        console.error("Error al desactivar producto:", error);
+        return res.status(500).send("Error interno");
+    }
+}
+
+async function activarProducto(req, res) {
+    try {
+        const { id } = req.params;
+
+        await Producto.update(
+            { activo: true },
+            { where: { id } }
+        );
+
+        return res.redirect("/admin/productos");
+
+    } catch (error) {
+        console.error("Error al activar producto:", error);
+        return res.status(500).send("Error interno");
+    }
+}
+
+async function editarProducto(req, res) {
+    try {
+        const { id } = req.params;
+
+        const {
+            marca,
+            nombre_producto,
+            formato,
+            precio,
+            tipo_producto,
+            activo,
+            densidad,
+            tipo,
+            categoria,
+            url_imagen
+        } = req.body;
+        console.log(tipo_producto);
+        
+        let imagenFinal = url_imagen;
+
+        if (req.file) {
+            const ext = path.extname(req.file.originalname);
+            imagenFinal = `/images/producto-${id}${ext}`;
+        }
+        await Producto.update(
+            {
+                marca,
+                nombre_producto,
+                formato,
+                precio,
+                tipo_producto,
+                activo: activo === "true",
+                url_imagen: imagenFinal
+            },
+            { where: { id } }
+        );
+
+        if (tipo_producto === "lubricante") {
+            await Lubricante.update(
+                {
+                    densidad,
+                    tipo
+                },
+                {
+                    where: { producto_id: id }
+                }
+            );
+        }
+
+        if (tipo_producto === "estetica_vehicular") {
+            await EsteticaVehicular.update(
+                {
+                    categoria
+                },
+                {
+                    where: { producto_id: id }
+                }
+            );
+        }
+
+        return res.redirect("/admin/productos");
+
+    } catch (error) {
+        console.error("Error editando producto:", error);
+        return res.status(500).send("Error interno");
+    }
+}
+
+module.exports = { editarProducto };
+
+
 module.exports = {
     obtenerLubricantes,
     obtenerEstetica,
     registrarVenta,
     obtenerTicket,
-    crearLubricante,
-    crearEstetica,
-    actualizarLubricante,
-    actualizarEstetica
+    listarEstetica,
+    listarLubricantes,
+    activarProducto,
+    desactivarProducto,
+    editarProducto,
+    crearProducto
 };

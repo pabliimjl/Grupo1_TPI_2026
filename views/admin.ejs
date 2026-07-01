@@ -2,70 +2,217 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Panel de Administración</title>
 
     <link rel="stylesheet" href="/css/admin.css">
+
 </head>
 
 <body>
 
-    <header>
+<header>
 
-        <h1>Panel de Administración</h1>
+    <h1>Panel de Administración</h1>
 
-        <button id="btnLogout">
-            Cerrar sesión
-        </button>
+    <button id="btnLogout">
+        Cerrar sesión
+    </button>
 
-    </header>
+</header>
 
-    <main>
+<main>
 
-        <section class="bienvenida">
+    <section class="categoria">
 
-            <h2>Bienvenido</h2>
+        <div class="titulo">
 
-            <p>Seleccione una opción para administrar el sistema.</p>
+            <h2>Lubricantes</h2>
 
-        </section>
+            <button onclick="window.location.href='/admin/productos/nuevo'">
+                + Nuevo producto
+            </button>
 
-        <section class="opciones">
+        </div>
 
-            <div class="card" id="productos">
+        <table>
 
-                <h3>Productos</h3>
+            <thead>
 
-                <p>
-                    Alta, modificación, activación y desactivación de productos.
-                </p>
+                <tr>
 
-                <button>
-                    Administrar
-                </button>
+                    <th>ID</th>
+                    <th>Imagen</th>
+                    <th>Marca</th>
+                    <th>Producto</th>
+                    <th>Formato</th>
+                    <th>Densidad</th>
+                    <th>Tipo</th>
+                    <th>Precio</th>
+                    <th>Activo</th>
+                    <th>Acciones</th>
 
-            </div>
+                </tr>
 
-            <div class="card" id="ventas">
+            </thead>
 
-                <h3>Ventas</h3>
+            <tbody>
 
-                <p>
-                    Consultar todas las ventas realizadas.
-                </p>
+                <% lubricantes.forEach(producto => { %>
 
-                <button>
-                    Ver ventas
-                </button>
+                    <tr>
 
-            </div>
+                        <td><%= producto.id %></td>
 
-        </section>
+                        <td>
 
-    </main>
+                            <img
+                                src="<%= producto.url_imagen %>"
+                                class="imagenProducto">
 
-    <script src="/js/admin.js"></script>
+                        </td>
+
+                        <td><%= producto.marca %></td>
+
+                        <td><%= producto.nombre_producto %></td>
+
+                        <td><%= producto.formato %></td>
+
+                        <td><%= producto.lubricante?.densidad %></td>
+
+                        <td><%= producto.lubricante?.tipo %></td>
+
+                        <td>$ <%= producto.precio %></td>
+
+                        <td>
+                        <% if (producto.activo) { %>
+                            <span>Activo</span>
+                        <% } else { %>
+                            <span>Inactivo</span>
+                        <% } %>
+                        </td>
+
+                        <td>
+                        <a href="/admin/productos/<%= producto.id %>/editar">
+                            Editar
+                        </a>
+                        |
+
+                        <% if (producto.activo) { %>
+                            <a href="/admin/productos/<%= producto.id %>/desactivar">
+                            Desactivar
+                            </a>
+                        <% } else { %>
+                            <a href="/admin/productos/<%= producto.id %>/activar">
+                            Activar
+                            </a>
+                        <% } %>
+                        </td>
+
+
+                    </tr>
+
+                <% }) %>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <section class="categoria">
+
+        <h2>Estética Vehicular</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Imagen</th>
+                    <th>Marca</th>
+                    <th>Producto</th>
+                    <th>Categoría</th>
+                    <th>Formato</th>
+                    <th>Precio</th>
+                    <th>Activo</th>
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <% esteticas.forEach(producto => { %>
+
+                    <tr>
+
+                        <td><%= producto.id %></td>
+
+                        <td>
+
+                            <img
+                                src="<%= producto.url_imagen %>"
+                                class="imagenProducto">
+
+                        </td>
+
+                        <td><%= producto.marca %></td>
+
+                        <td><%= producto.nombre_producto %></td>
+
+                        <td><%= producto.esteticaVehicular?.categoria %></td>
+
+                        <td><%= producto.formato %></td>
+
+                        <td>$ <%= producto.precio %></td>
+
+                        <td>
+                        <% if (producto.activo) { %>
+                            <span>Activo</span>
+                        <% } else { %>
+                            <span>Inactivo</span>
+                        <% } %>
+                        </td>
+
+                        <td>
+                        <a href="/admin/productos/<%= producto.id %>/editar">
+                            Editar
+                        </a>
+                        |
+
+                        <% if (producto.activo) { %>
+                            <a href="/admin/productos/<%= producto.id %>/desactivar">
+                            Desactivar
+                            </a>
+                        <% } else { %>
+                            <a href="/admin/productos/<%= producto.id %>/activar">
+                            Activar
+                            </a>
+                        <% } %>
+                        </td>
+
+
+                    </tr>
+
+                <% }) %>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</main>
+
+<script src="/js/admin.js"></script>
 
 </body>
 

@@ -5,19 +5,32 @@ const {
     obtenerLubricantes,
     obtenerEstetica,
     registrarVenta,
-    obtenerTicket
+    obtenerTicket,
+    desactivarProducto,
+    activarProducto,
+    editarProducto,
+    crearProducto
 } = require("../controllers/productos.controller");
 
 const upload = require("../config/multer");
 
-const { subirImagen } = require("../controllers/images.controller");
 
-router.post("/imagen", upload.single("imagen"), subirImagen);
+router.get("/api/lubricantes", obtenerLubricantes);
+router.get("/api/estetica", obtenerEstetica);
+router.post("/api/venta",registrarVenta)
+router.get("/api/ticket/:id", obtenerTicket)
+router.get("/admin/productos/:id/desactivar", desactivarProducto);
+router.get("/admin/productos/:id/activar", activarProducto);
+router.post(
+  "/admin/productos/:id/editar",
+  upload.single("imagen"),
+  editarProducto
+);
+router.post(
+    "/admin/productos/nuevo",
+    upload.single("imagen"),
+    crearProducto
+);
 
-
-router.get("/lubricantes", obtenerLubricantes);
-router.get("/estetica", obtenerEstetica);
-router.post("/venta",registrarVenta)
-router.get("/ticket/:id", obtenerTicket)
 
 module.exports = router;

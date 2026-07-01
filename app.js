@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
+const cookieParser = require("cookie-parser")
 
 const app = express();
 
@@ -10,16 +12,17 @@ app.use(cors({
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 app.use(express.static("public"));
+app.use("/images", express.static(path.join(__dirname, "public/resources/images")));
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
 const productosRoutes = require("./routes/productos.routes");
 const adminRoutes = require("./routes/admin.routes")
 
-app.use("/api", productosRoutes);
-app.use("/admin",adminRoutes);
+app.use("/", productosRoutes);
+app.use("/",adminRoutes);
 
 const PORT = process.env.PORT || 3000;
 
